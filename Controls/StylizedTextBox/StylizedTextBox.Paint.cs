@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
+﻿using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace StylizedComponents.Controls
@@ -13,20 +8,30 @@ namespace StylizedComponents.Controls
     {
         protected override void OnPaint(PaintEventArgs e)
         {
-
             Graphics g = e.Graphics;
 
             g.SmoothingMode = SmoothingMode.AntiAlias;
-            g.PixelOffsetMode = PixelOffsetMode.None;
-            g.CompositingQuality = CompositingQuality.HighSpeed;
+            g.PixelOffsetMode = PixelOffsetMode.HighQuality;
+            g.CompositingQuality = CompositingQuality.HighQuality;
 
-            int diameter = _borderRadius * 2;
-            Rectangle rect = new Rectangle(1, 1, Width - 3, Height - 3);
+            float half = _borderThickness / 2f;
+
+            RectangleF rect = new RectangleF(
+                half,
+                half,
+                Width - _borderThickness - 1,
+                Height - _borderThickness - 1
+            );
+
+            float radius = _borderRadius;
+            float diameter = radius * 2f;
 
             using (GraphicsPath path = new GraphicsPath())
             {
-                if (diameter <= 0)
+                if (radius <= 0)
+                {
                     path.AddRectangle(rect);
+                }
                 else
                 {
                     path.AddArc(rect.X, rect.Y, diameter, diameter, 180, 90);
@@ -42,8 +47,14 @@ namespace StylizedComponents.Controls
                     g.FillPath(brush, path);
                 }
 
-                using (Pen pen = new Pen(_borderColor, _borderWidth))
+                if (_borderThickness == 0)
+                    return;
+
+                using (Pen pen = new Pen(_borderColor, _borderThickness))
                 {
+                    pen.LineJoin = LineJoin.Round;
+                    pen.DashStyle = _borderStyle;
+
                     g.DrawPath(pen, path);
                 }
             }

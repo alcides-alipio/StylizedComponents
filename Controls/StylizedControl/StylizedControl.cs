@@ -14,6 +14,7 @@ namespace StylizedComponents.Controls
                 ControlStyles.AllPaintingInWmPaint |
                 ControlStyles.OptimizedDoubleBuffer,
                 true);
+            UpdateStyles();
         }
     }
 }

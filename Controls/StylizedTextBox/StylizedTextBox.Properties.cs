@@ -1,33 +1,25 @@
 ﻿using System.ComponentModel;
 using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Net.Mime;
+using System.Windows.Forms;
 
 namespace StylizedComponents.Controls
 {
     partial class StylizedTextBox
     {
-        private int _borderRadius = 0;
-        private float _borderWidth = 2f;
-        private Color _borderColor = Color.FromArgb(213, 218, 223);
-        private string _placeholderText = string.Empty;
-        private Color _placeholderColor = Color.FromArgb(193, 200, 207);
         private string _textInput = string.Empty;
         private bool _useSystemPasswordChar = false;
 
-        [Browsable(true)]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
-        [Category("Appearance")]
-        [DefaultValue(false)]
-        public bool UseSystemPasswordChar
-        {
-            get => _useSystemPasswordChar;
-            set
-            {
-                _useSystemPasswordChar = value;
+        private string _placeholderText = string.Empty;
+        private Color _placeholderColor = Color.FromArgb(193, 200, 207);
 
-                if (!_isPlaceholderActive)
-                    _textBox.UseSystemPasswordChar = value;
-            }
-        }
+        private int _borderRadius = 0;
+        private int _borderThickness = 1;
+        private Color _borderColor = Color.FromArgb(213, 218, 223);
+        private DashStyle _borderStyle = DashStyle.Solid;
+
+        #region Text Properties
 
         [Browsable(true)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -56,8 +48,35 @@ namespace StylizedComponents.Controls
             }
         }
 
+        [Browsable(true)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [Category("Behavior")]
+        [DefaultValue(false)]
+        public bool UseSystemPasswordChar
+        {
+            get => _useSystemPasswordChar;
+            set
+            {
+                _useSystemPasswordChar = value;
+
+                if (!_isPlaceholderActive)
+                    _textBox.UseSystemPasswordChar = value;
+            }
+        }
+
+        [DefaultValue(typeof(Color), "125, 137, 149")]
+        public override Color ForeColor
+        {
+            get => base.ForeColor;
+            set => base.ForeColor = value;
+        }
+
+        #endregion
+
+        #region Placeholder Properties
+
         [Category("Appearance")]
-        [Description("")]
+        [Description("Text displayed when the field is empty.")]
         [DefaultValue("")]
         public string PlaceholderText
         {
@@ -74,8 +93,8 @@ namespace StylizedComponents.Controls
         }
 
         [Category("Appearance")]
-        [Description("")]
-        [DefaultValue(typeof(Color), "193; 200; 207")]
+        [Description("Color used for the placeholder text.")]
+        [DefaultValue(typeof(Color), "193, 200, 207")]
         public Color PlaceholderColor
         {
             get => _placeholderColor;
@@ -89,8 +108,12 @@ namespace StylizedComponents.Controls
             }
         }
 
+        #endregion
+
+        #region Border Properties
+
         [Category("Appearance")]
-        [Description("Raio dos cantos")]
+        [Description("Corner radius of the control border.")]
         [DefaultValue(0)]
         public int BorderRadius
         {
@@ -107,16 +130,16 @@ namespace StylizedComponents.Controls
         }
 
         [Category("Appearance")]
-        [Description("Espessura da borda")]
-        [DefaultValue(1f)]
-        public float BorderWidth
+        [Description("Thickness of the control border.")]
+        [DefaultValue(1)]
+        public int BorderThickness
         {
-            get => _borderWidth;
+            get => _borderThickness;
             set
             {
-                if (value != _borderWidth)
+                if (value != _borderThickness)
                 {
-                    _borderWidth = value;
+                    _borderThickness = value;
                     UpdateBorder();
                     Invalidate();
                 }
@@ -124,8 +147,8 @@ namespace StylizedComponents.Controls
         }
 
         [Category("Appearance")]
-        [Description("Cor da borda")]
-        [DefaultValue(typeof(Color), "213; 218; 223")]
+        [Description("Color of the control border.")]
+        [DefaultValue(typeof(Color), "213, 218, 223")]
         public Color BorderColor
         {
             get => _borderColor;
@@ -138,5 +161,72 @@ namespace StylizedComponents.Controls
                 }
             }
         }
+
+        [Category("Appearance")]
+        [Description("Style of the control border line.")]
+        [DefaultValue(DashStyle.Solid)]
+        public DashStyle BorderStyle
+        {
+            get => _borderStyle;
+            set
+            {
+                if (value != _borderStyle)
+                {
+                    _borderStyle = value;
+                    UpdateBorder();
+                }
+            }
+        }
+
+        #endregion
+
+        #region Background Properties
+
+        [DefaultValue(typeof(Color), "White")]
+        public override Color BackColor
+        {
+            get => base.BackColor;
+            set => base.BackColor = value;
+        }
+
+        [Browsable(false)]
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public new Image BackgroundImage
+        {
+            get => base.BackgroundImage;
+            set => base.BackgroundImage = value;
+        }
+
+        [Browsable(false)]
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public override ImageLayout BackgroundImageLayout
+        {
+            get => base.BackgroundImageLayout;
+            set => base.BackgroundImageLayout = value;
+        }
+
+        #endregion
+
+        #region Outhers Properties
+
+        public override Cursor Cursor
+        {
+            get => base.Cursor;
+            set
+            {
+                _textBox.Cursor = value;
+                base.Cursor = value;
+            }
+        }
+
+        [Browsable(false)]
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public new Padding Padding
+        {
+            get => base.Padding;
+            set => base.Padding = value;
+        }
+
+        #endregion
     }
 }

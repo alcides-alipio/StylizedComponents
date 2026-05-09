@@ -1,10 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
-using System.ComponentModel.Design;
 using System.Drawing;
-using System.Drawing.Drawing2D;
 using System.Windows.Forms;
-using System.Windows.Forms.Design;
 
 namespace StylizedComponents.Controls
 {
@@ -18,8 +15,10 @@ namespace StylizedComponents.Controls
 
         public StylizedTextBox()
         {
-            base.BackColor = SystemColors.Window;
-            Cursor = Cursors.IBeam;
+            base.Size = new Size(200, 36);
+            base.BackColor = Color.White;
+            base.ForeColor = Color.FromArgb(125, 137, 149);
+            base.Cursor = Cursors.IBeam;
 
             _clientArea = new Panel
             {
@@ -27,9 +26,9 @@ namespace StylizedComponents.Controls
             };
             _textBox = new TextBox
             {
-                BorderStyle = BorderStyle.None,
+                BorderStyle = System.Windows.Forms.BorderStyle.None,
                 Margin = Padding.Empty,
-                Text = string.Empty
+                ForeColor = ForeColor
             };
             Controls.Add(_clientArea);
             _clientArea.Controls.Add(_textBox);
@@ -44,6 +43,16 @@ namespace StylizedComponents.Controls
             _textBox.Enter += (s, e) => UnsetPlaceholder();
             _textBox.Leave += (s, e) => SetPlaceholder();
             _textBox.TextChanged += (s, e) => UpdateTextInput();
+        }
+
+
+        protected override void OnCreateControl()
+        {
+            base.OnCreateControl();
+
+            UpdateAll();
+            SetPlaceholder();
+            Invalidate();
         }
 
         private void UpdateAll()
@@ -72,14 +81,14 @@ namespace StylizedComponents.Controls
 
         private void UpdateTextBox()
         {
-            int border = (int)Math.Ceiling(_borderWidth);
-            int cornerInset = (int)Math.Ceiling(_borderRadius / 2f);
-            int inset = border + cornerInset;
+            double angleRad = 45.0 * (Math.PI / 180.0);
+            int cornerInset = (int)(_borderRadius * (1.0 - Math.Cos(angleRad)));
+            int inset = _borderThickness + cornerInset;
 
-            int x = inset;
+            int x = inset + 3;
             int y = inset;
-            int w = Math.Max(0, ClientSize.Width - (inset * 2));
-            int h = Math.Max(0, ClientSize.Height - (inset * 2));
+            int w = Math.Max(0, ClientSize.Width - (inset * 2)) - 6;
+            int h = Math.Max(0, ClientSize.Height - (inset * 2)) - 1;
 
             _clientArea.Bounds = new Rectangle(x, y, w, h);
             _textBox.Location = new Point(
