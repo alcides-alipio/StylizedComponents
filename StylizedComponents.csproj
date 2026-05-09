@@ -1,0 +1,33 @@
+<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <TargetFramework>net472</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+    <OutputType>Library</OutputType>
+    <RootNamespace>StylizedComponents</RootNamespace>
+    <AssemblyName>StylizedComponents</AssemblyName>
+    <Deterministic>true</Deterministic>
+    <PackageId>StylizedComponents</PackageId>
+    <Version>1.0.0</Version>
+    <Authors>Alcides Alipio</Authors>
+    <Description>
+      WinForms custom controls library
+    </Description>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageTags>
+      winforms ui controls
+    </PackageTags>
+    <RepositoryUrl>
+      https://github.com/alcides-alipio/StylizedComponents
+    </RepositoryUrl>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <RepositoryType></RepositoryType>
+    <NeutralLanguage>aa</NeutralLanguage>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="System.Design" />
+  </ItemGroup>
+
+</Project>
