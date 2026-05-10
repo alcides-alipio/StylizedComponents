@@ -14,10 +14,7 @@ namespace StylizedComponents.Controls
         private string _placeholderText = string.Empty;
         private Color _placeholderColor = Color.FromArgb(193, 200, 207);
 
-        private int _borderRadius = 0;
-        private int _borderThickness = 1;
-        private Color _borderColor = Color.FromArgb(213, 218, 223);
-        private DashStyle _borderStyle = DashStyle.Solid;
+
         private Color _hoverBorderColor = Color.Blue;
 
         #region Text Properties
@@ -113,71 +110,6 @@ namespace StylizedComponents.Controls
 
         #region Border Properties
 
-        [Category("Appearance")]
-        [Description("Corner radius of the control border.")]
-        [DefaultValue(0)]
-        public int BorderRadius
-        {
-            get => _borderRadius;
-            set
-            {
-                if (value != _borderRadius)
-                {
-                    _borderRadius = value;
-                    UpdateBorder();
-                    Invalidate();
-                }
-            }
-        }
-
-        [Category("Appearance")]
-        [Description("Thickness of the control border.")]
-        [DefaultValue(1)]
-        public int BorderThickness
-        {
-            get => _borderThickness;
-            set
-            {
-                if (value != _borderThickness)
-                {
-                    _borderThickness = value;
-                    UpdateBorder();
-                    Invalidate();
-                }
-            }
-        }
-
-        [Category("Appearance")]
-        [Description("Color of the control border.")]
-        [DefaultValue(typeof(Color), "213, 218, 223")]
-        public Color BorderColor
-        {
-            get => _borderColor;
-            set
-            {
-                if (value != _borderColor)
-                {
-                    _borderColor = value;
-                    UpdateColors();
-                }
-            }
-        }
-
-        [Category("Appearance")]
-        [Description("Style of the control border line.")]
-        [DefaultValue(DashStyle.Solid)]
-        public DashStyle BorderStyle
-        {
-            get => _borderStyle;
-            set
-            {
-                if (value != _borderStyle)
-                {
-                    _borderStyle = value;
-                    UpdateBorder();
-                }
-            }
-        }
         [Category("Appearance")]
         [Description("Border color on mouse hover.")]
         [DefaultValue(DashStyle.Solid)]

@@ -103,5 +103,37 @@ namespace StylizedComponents.Controls
         }
 
         #endregion
+
+        #region Border Events
+
+        protected override void OnBorderRadiusChanged(EventArgs e)
+        {
+            base.OnBorderRadiusChanged(e);
+
+            UpdateTextBox();
+        }
+
+        protected override void OnBorderThicknessChanged(EventArgs e)
+        {
+            base.OnBorderThicknessChanged(e);
+
+            UpdateTextBox();
+        }
+
+        protected override void OnBorderColorChanged(EventArgs e)
+        {
+            base.OnBorderColorChanged(e);
+
+            UpdateColors();
+        }
+
+        protected override void OnBorderStyleChanged(EventArgs e)
+        {
+            base.OnBorderStyleChanged(e);
+
+            UpdateTextBox();
+        }
+
+        #endregion
     }
 }

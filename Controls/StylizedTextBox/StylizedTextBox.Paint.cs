@@ -6,24 +6,24 @@ namespace StylizedComponents.Controls
 {
     partial class StylizedTextBox
     {
-        protected override void OnPaint(PaintEventArgs e)
+        protected override void OnPaintContent(PaintEventArgs e)
         {
             Graphics g = e.Graphics;
 
             g.SmoothingMode = SmoothingMode.AntiAlias;
-            g.PixelOffsetMode = PixelOffsetMode.HighQuality;
-            g.CompositingQuality = CompositingQuality.HighQuality;
+            g.PixelOffsetMode = PixelOffsetMode.Half;
+            g.CompositingQuality = CompositingQuality.HighSpeed;
 
-            float half = _borderThickness / 2f;
+            float half = BorderThickness / 2f;
 
             RectangleF rect = new RectangleF(
                 half,
                 half,
-                Width - _borderThickness - 1,
-                Height - _borderThickness - 1
+                Width - BorderThickness - 1,
+                Height - BorderThickness - 1
             );
 
-            float radius = _borderRadius;
+            float radius = BorderRadius;
             float diameter = radius * 2f;
 
             using (GraphicsPath path = new GraphicsPath())
@@ -47,10 +47,10 @@ namespace StylizedComponents.Controls
                     g.FillPath(brush, path);
                 }
 
-                if (_borderThickness == 0)
+                if (BorderThickness == 0)
                     return;
 
-                Color borderColor = _borderColor;
+                Color borderColor = BorderColor;
 
                 if (_hoverState)
                     borderColor = _hoverBorderColor;
@@ -58,10 +58,10 @@ namespace StylizedComponents.Controls
                 if (_isFocused && borderColor != _hoverBorderColor)
                     borderColor = _hoverBorderColor;
 
-                using (Pen pen = new Pen(borderColor, _borderThickness))
+                using (Pen pen = new Pen(borderColor, BorderThickness))
                 {
                     pen.LineJoin = LineJoin.Round;
-                    pen.DashStyle = _borderStyle;
+                    pen.DashStyle = BorderStyle;
 
                     g.DrawPath(pen, path);
                 }

@@ -61,7 +61,6 @@ namespace StylizedComponents.Controls
 
         private void UpdateAll()
         {
-            UpdateBorder();
             UpdateTextBox();
         }
 
@@ -77,17 +76,11 @@ namespace StylizedComponents.Controls
             Invalidate();
         }
 
-        private void UpdateBorder()
-        {
-            UpdateTextBox();
-            Invalidate();
-        }
-
         private void UpdateTextBox()
         {
             double angleRad = 45.0 * (Math.PI / 180.0);
-            int cornerInset = (int)(_borderRadius * (1.0 - Math.Cos(angleRad)));
-            int inset = _borderThickness + cornerInset;
+            int cornerInset = (int)(BorderRadius * (1.0 - Math.Cos(angleRad)));
+            int inset = BorderThickness + cornerInset;
 
             int x = inset + 3;
             int y = inset;
