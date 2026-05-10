@@ -56,6 +56,7 @@ namespace StylizedComponents.Controls
                     new DesignerActionPropertyItem("BorderThickness", "BorderThickness", "Section2"),
                     new DesignerActionPropertyItem("BorderStyle", "BorderStyle", "Section2"),
                     new DesignerActionPropertyItem("BorderColor", "BorderColor", "Section2"),
+                    new DesignerActionPropertyItem("HoverBorderColor", "HoverBorderColor", "Section2"),
                     new DesignerActionPropertyItem("ForeColor", "ForeColor", "Section2"),
                     new DesignerActionPropertyItem("BackColor", "BackColor", "Section2"),
                     new DesignerActionPropertyItem("PlaceholderColor", "ForeColor", "Section2"),
@@ -118,6 +119,12 @@ namespace StylizedComponents.Controls
             {
                 get => _control.BorderColor;
                 set => SetProperty(nameof(_control.BorderColor), value);
+            }
+
+            public Color HoverBorderColor
+            {
+                get => _control.HoverBorderColor;
+                set => SetProperty(nameof(_control.HoverBorderColor), value);
             }
 
             public Color ForeColor

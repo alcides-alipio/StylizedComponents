@@ -12,6 +12,7 @@ namespace StylizedComponents.Controls
         private TextBox _textBox;
         private Panel _clientArea;
         private bool _isPlaceholderActive = false;
+        private bool _isFocused = false;
 
         public StylizedTextBox()
         {
@@ -38,21 +39,24 @@ namespace StylizedComponents.Controls
             ForeColorChanged += (s, e) => UpdateColors();
             Click += (s, e) => SetTextBoxFocus();
 
-            _clientArea.Click += (s, e) => SetTextBoxFocus();
-
-            _textBox.Enter += (s, e) => UnsetPlaceholder();
-            _textBox.Leave += (s, e) => SetPlaceholder();
-            _textBox.TextChanged += (s, e) => UpdateTextInput();
+            RegisterTextBoxInputEvents();
+            RegisterHoverEvents(this);
         }
 
-
-        protected override void OnCreateControl()
+        protected override void Dispose(bool disposing)
         {
-            base.OnCreateControl();
+            if (disposing)
+            {
+                Resize -= (s, e) => UpdateAll();
+                BackColorChanged -= (s, e) => UpdateColors();
+                ForeColorChanged -= (s, e) => UpdateColors();
+                Click -= (s, e) => SetTextBoxFocus();
 
-            UpdateAll();
-            SetPlaceholder();
-            Invalidate();
+                UnregisterTextBoxInputEvents();
+                UnregisterHoverEvents(this);
+            }
+
+            base.Dispose(disposing);
         }
 
         private void UpdateAll()

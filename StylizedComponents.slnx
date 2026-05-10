@@ -1,3 +1,4 @@
 <Solution>
+  <Project Path="../TestApp/TestApp.csproj" Id="342e3b6e-d45e-4f82-8d9f-43e3e1fa0ddb" />
   <Project Path="StylizedComponents.csproj" Id="b65c5faa-eaac-4c05-b703-a6fdbecd6b8e" />
 </Solution>

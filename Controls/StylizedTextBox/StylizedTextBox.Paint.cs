@@ -50,7 +50,15 @@ namespace StylizedComponents.Controls
                 if (_borderThickness == 0)
                     return;
 
-                using (Pen pen = new Pen(_borderColor, _borderThickness))
+                Color borderColor = _borderColor;
+
+                if (_hoverState)
+                    borderColor = _hoverBorderColor;
+
+                if (_isFocused && borderColor != _hoverBorderColor)
+                    borderColor = _hoverBorderColor;
+
+                using (Pen pen = new Pen(borderColor, _borderThickness))
                 {
                     pen.LineJoin = LineJoin.Round;
                     pen.DashStyle = _borderStyle;

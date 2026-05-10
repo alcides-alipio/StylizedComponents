@@ -18,6 +18,7 @@ namespace StylizedComponents.Controls
         private int _borderThickness = 1;
         private Color _borderColor = Color.FromArgb(213, 218, 223);
         private DashStyle _borderStyle = DashStyle.Solid;
+        private Color _hoverBorderColor = Color.Blue;
 
         #region Text Properties
 
@@ -175,6 +176,18 @@ namespace StylizedComponents.Controls
                     _borderStyle = value;
                     UpdateBorder();
                 }
+            }
+        }
+        [Category("Appearance")]
+        [Description("Border color on mouse hover.")]
+        [DefaultValue(DashStyle.Solid)]
+        public Color HoverBorderColor
+        {
+            get => _hoverBorderColor;
+            set
+            {
+                _hoverBorderColor = value;
+                UpdateColors();
             }
         }
 
