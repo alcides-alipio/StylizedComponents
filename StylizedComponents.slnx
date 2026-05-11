@@ -1,4 +1,3 @@
 <Solution>
-  <Project Path="../App/App.csproj" Id="a5417445-66eb-4989-a768-fd476f446de4" />
   <Project Path="StylizedComponents.csproj" Id="b65c5faa-eaac-4c05-b703-a6fdbecd6b8e" />
 </Solution>

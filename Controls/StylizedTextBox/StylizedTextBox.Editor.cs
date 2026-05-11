@@ -9,7 +9,7 @@ namespace StylizedComponents.Controls
 {
     partial class StylizedTextBox
     {
-        public class TextBoxStylizedDesigner : ControlDesigner
+        public class StylizedTextBoxDesigner : ControlDesigner
         {
             public override void InitializeNewComponent(IDictionary defaultValues)
             {
@@ -25,18 +25,18 @@ namespace StylizedComponents.Controls
                 {
                     return new DesignerActionListCollection
                     {
-                        new TextBoxStylizedActionList(Component)
+                        new StylizedTextBoxActionList(Component)
                     };
                 }
             }
         }
 
-        public class TextBoxStylizedActionList : DesignerActionList
+        public class StylizedTextBoxActionList : DesignerActionList
         {
             private StylizedTextBox _control;
             private DesignerActionUIService _service;
 
-            public TextBoxStylizedActionList(IComponent component)
+            public StylizedTextBoxActionList(IComponent component)
                 : base(component)
             {
                 _control = (StylizedTextBox)component;

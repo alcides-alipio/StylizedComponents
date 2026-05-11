@@ -6,7 +6,7 @@ using System.Windows.Forms;
 namespace StylizedComponents.Controls
 {
     [ToolboxItem(true)]
-    [Designer(typeof(TextBoxStylizedDesigner))]
+    [Designer(typeof(StylizedTextBoxDesigner))]
     public partial class StylizedTextBox : StylizedControl
     {
         private TextBox _textBox;
