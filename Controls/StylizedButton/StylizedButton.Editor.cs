@@ -7,16 +7,15 @@ using System.Windows.Forms.Design;
 
 namespace StylizedComponents.Controls
 {
-    partial class StylizedTextBox
+    public partial class StylizedButton
     {
-        public class StylizedTextBoxDesigner : ControlDesigner
+        public class StylizedButtonDesigner : ControlDesigner
         {
             public override void InitializeNewComponent(IDictionary defaultValues)
             {
                 base.InitializeNewComponent(defaultValues);
 
-                var control = (StylizedTextBox)Control;
-                control.Text = string.Empty;
+                var control = (StylizedButton)Control;
             }
 
             public override DesignerActionListCollection ActionLists
@@ -25,21 +24,21 @@ namespace StylizedComponents.Controls
                 {
                     return new DesignerActionListCollection
                     {
-                        new StylizedTextBoxActionList(Component)
+                        new StylizedButtonActionList(Component)
                     };
                 }
             }
         }
 
-        public class StylizedTextBoxActionList : DesignerActionList
+        public class StylizedButtonActionList : DesignerActionList
         {
-            private StylizedTextBox _control;
+            private StylizedButton _control;
             private DesignerActionUIService _service;
 
-            public StylizedTextBoxActionList(IComponent component)
+            public StylizedButtonActionList(IComponent component)
                 : base(component)
             {
-                _control = (StylizedTextBox)component;
+                _control = (StylizedButton)component;
                 _service = GetService(typeof(DesignerActionUIService)) as DesignerActionUIService;
             }
 
@@ -47,20 +46,19 @@ namespace StylizedComponents.Controls
             {
                 return new DesignerActionItemCollection
                 {
-                    new DesignerActionPropertyItem("Font", "Font", "Section1"),
-                    new DesignerActionPropertyItem("Text", "Text", "Section1"),
-                    new DesignerActionPropertyItem("PlaceholderText", "PlaceholderText", "Section1"),
+                    new DesignerActionPropertyItem("Font", "Font", "Section 1"),
+                    new DesignerActionPropertyItem("Text", "Text", "Section 1"),
 
                     new DesignerActionPropertyItem("BorderRadius", "BorderRadius", "Section2"),
                     new DesignerActionPropertyItem("BorderThickness", "BorderThickness", "Section2"),
                     new DesignerActionPropertyItem("BorderStyle", "BorderStyle", "Section2"),
                     new DesignerActionPropertyItem("BorderColor", "BorderColor", "Section2"),
-                    new DesignerActionPropertyItem("HoverBorderColor", "HoverBorderColor", "Section2"),
                     new DesignerActionPropertyItem("ForeColor", "ForeColor", "Section2"),
                     new DesignerActionPropertyItem("BackColor", "BackColor", "Section2"),
-                    new DesignerActionPropertyItem("PlaceholderColor", "PlaceholderColor", "Section2"),
+                    new DesignerActionPropertyItem("HoverColorFilter", "HoverColorFilter", "Section2"),
+                    new DesignerActionPropertyItem("HoverFilterStrength", "HoverFilterStrength", "Section2"),
 
-                    new DesignerActionPropertyItem("UseSystemPasswordChar", "UseSystemPasswordChar", "Section3"),
+                    new DesignerActionPropertyItem("AutoRoundedCorners", "AutoRoundedCorners", "Section3"),
                 };
             }
 
@@ -86,15 +84,9 @@ namespace StylizedComponents.Controls
                 set => SetProperty(nameof(_control.Text), value);
             }
 
-            public string PlaceholderText
-            {
-                get => _control.PlaceholderText;
-                set => SetProperty(nameof(_control.PlaceholderText), value);
-            }
-
             #endregion
 
-            #region Setion 2
+            #region Section 2
 
             public int BorderRadius
             {
@@ -120,12 +112,6 @@ namespace StylizedComponents.Controls
                 set => SetProperty(nameof(_control.BorderColor), value);
             }
 
-            public Color HoverBorderColor
-            {
-                get => _control.HoverBorderColor;
-                set => SetProperty(nameof(_control.HoverBorderColor), value);
-            }
-
             public Color ForeColor
             {
                 get => _control.ForeColor;
@@ -138,20 +124,25 @@ namespace StylizedComponents.Controls
                 set => SetProperty(nameof(_control.BackColor), value);
             }
 
-            public Color PlaceholderColor
+            public Color HoverColorFilter
             {
-                get => _control.PlaceholderColor;
-                set => SetProperty(nameof(_control.PlaceholderColor), value);
+                get => _control.HoverColorFilter;
+                set => SetProperty(nameof(_control.HoverColorFilter), value);
+            }
+
+            public float HoverFilterStrength
+            {
+                get => _control.HoverFilterStrength;
+                set => SetProperty(nameof(_control.HoverFilterStrength), value);
             }
 
             #endregion
 
-            #region Setion 3
-
-            public bool UseSystemPasswordChar
+            #region Section 3
+            public bool AutoRoundedCorners
             {
-                get => _control.UseSystemPasswordChar;
-                set => SetProperty(nameof(_control.UseSystemPasswordChar), value);
+                get => _control.AutoRoundedCorners;
+                set => SetProperty(nameof(_control.AutoRoundedCorners), value);
             }
 
             #endregion

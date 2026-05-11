@@ -17,7 +17,7 @@ namespace StylizedComponents.Controls
         [Category("Appearance")]
         [Description("Corner radius of the control border.")]
         [DefaultValue(0)]
-        public int BorderRadius
+        public virtual int BorderRadius
         {
             get => _borderRadius;
             set
@@ -37,7 +37,7 @@ namespace StylizedComponents.Controls
         [Category("Appearance")]
         [Description("Thickness of the control border.")]
         [DefaultValue(1)]
-        public int BorderThickness
+        public virtual int BorderThickness
         {
             get => _borderThickness;
             set
@@ -57,7 +57,7 @@ namespace StylizedComponents.Controls
         [Category("Appearance")]
         [Description("Color of the control border.")]
         [DefaultValue(typeof(Color), "213, 218, 223")]
-        public Color BorderColor
+        public virtual Color BorderColor
         {
             get => _borderColor;
             set
@@ -77,7 +77,7 @@ namespace StylizedComponents.Controls
         [Category("Appearance")]
         [Description("Style of the control border line.")]
         [DefaultValue(DashStyle.Solid)]
-        public DashStyle BorderStyle
+        public virtual DashStyle BorderStyle
         {
             get => _borderStyle;
             set
