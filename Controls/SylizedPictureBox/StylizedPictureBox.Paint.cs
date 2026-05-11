@@ -7,6 +7,8 @@ namespace StylizedComponents.Controls
 {
     public partial class StylizedPictureBox
     {
+        private Bitmap _backgroundCache = null;
+
         protected override void OnPaintContent(PaintEventArgs e)
         {
             base.OnPaintContent(e);
@@ -113,24 +115,11 @@ namespace StylizedComponents.Controls
             return new Point(x, y);
         }
 
-        protected override void OnPaintBackground(PaintEventArgs e)
+        private void BuildBackgroundCache()
         {
-            if (Parent == null)
-            {
-                base.OnPaintBackground(e);
-                return;
-            }
+            _backgroundCache = new Bitmap(Parent.ClientSize.Width, Parent.ClientSize.Height);
 
-            if (!_useTransparentBackground)
-            {
-                base.OnPaintBackground(e);
-                return;
-            }
-
-            Point offset = GetParentRelativeOffset();
-
-            using (Bitmap bmp = new Bitmap(Parent.ClientSize.Width, Parent.ClientSize.Height))
-            using (Graphics bmpG = Graphics.FromImage(bmp))
+            using (Graphics bmpG = Graphics.FromImage(_backgroundCache))
             {
                 bmpG.Clear(Parent.BackColor);
 
@@ -154,12 +143,34 @@ namespace StylizedComponents.Controls
                         bmpG.DrawImageUnscaled(controlBitmap, p.X, p.Y);
                     }
                 }
-
-                var state = e.Graphics.Save();
-                e.Graphics.TranslateTransform(-offset.X, -offset.Y);
-                e.Graphics.DrawImageUnscaled(bmp, 0, 0);
-                e.Graphics.Restore(state);
             }
+        }
+
+        protected override void OnPaintBackground(PaintEventArgs e)
+        {
+            if (Parent == null)
+            {
+                base.OnPaintBackground(e);
+                return;
+            }
+
+            if (!_useTransparentBackground)
+            {
+                base.OnPaintBackground(e);
+                return;
+            }
+
+            if (_backgroundCache == null)
+            {
+                BuildBackgroundCache();
+            }
+
+            Point offset = GetParentRelativeOffset();
+
+            var state = e.Graphics.Save();
+            e.Graphics.TranslateTransform(-offset.X, -offset.Y);
+            e.Graphics.DrawImageUnscaled(_backgroundCache, 0, 0);
+            e.Graphics.Restore(state);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System.ComponentModel;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace StylizedComponents.Controls
@@ -9,6 +10,9 @@ namespace StylizedComponents.Controls
         private PictureBoxSizeMode _sizeMode = PictureBoxSizeMode.Normal;
         private bool _useTransparentBackground = false;
 
+        [Browsable(true)]
+        [Category("Appearance")]
+        [DefaultValue(null)]
         public Image Image
         {
             get => _image;
@@ -19,6 +23,10 @@ namespace StylizedComponents.Controls
             }
         }
 
+        [Browsable(true)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [Category("Appearance")]
+        [DefaultValue(typeof(PictureBoxSizeMode), "Normal")]
         public PictureBoxSizeMode SizeMode
         {
             get => _sizeMode;
@@ -35,6 +43,10 @@ namespace StylizedComponents.Controls
             }
         }
 
+        [Browsable(true)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [Category("Appearance")]
+        [DefaultValue(false)]
         public bool UseTransparentBackground
         {
             get => _useTransparentBackground;
