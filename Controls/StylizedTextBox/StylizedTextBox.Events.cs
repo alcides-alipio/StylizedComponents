@@ -24,14 +24,18 @@ namespace StylizedComponents.Controls
             }
         }
 
+        #region Lifecycle Events
+
         protected override void OnCreateControl()
         {
             base.OnCreateControl();
 
-            UpdateAll();
+            UpdateTextBox();
             SetPlaceholder();
             Invalidate();
         }
+
+        #endregion
 
         #region Placeholder Events
 
@@ -104,6 +108,28 @@ namespace StylizedComponents.Controls
 
         #endregion
 
+        #region Foreground Events
+
+        override protected void OnForeColorChanged(EventArgs e)
+        {
+            base.OnForeColorChanged(e);
+
+            UpdateColors();
+        }
+
+        #endregion
+
+        #region Background Events
+
+        protected override void OnBackColorChanged(EventArgs e)
+        {
+            base.OnBackColorChanged(e);
+
+            UpdateColors();
+        }
+
+        #endregion
+
         #region Border Events
 
         protected override void OnBorderRadiusChanged(EventArgs e)
@@ -130,6 +156,24 @@ namespace StylizedComponents.Controls
         protected override void OnBorderStyleChanged(EventArgs e)
         {
             base.OnBorderStyleChanged(e);
+
+            UpdateTextBox();
+        }
+
+        protected override void OnAutoRoundedCornersChanged(EventArgs e)
+        {
+            base.OnAutoRoundedCornersChanged(e);
+
+            UpdateTextBox();
+        }
+
+        #endregion
+
+        #region Layout Events
+
+        protected override void OnResize(EventArgs e)
+        {
+            base.OnResize(e);
 
             UpdateTextBox();
         }

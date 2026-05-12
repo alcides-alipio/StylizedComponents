@@ -9,6 +9,7 @@ namespace StylizedComponents.Controls
         public event EventHandler BorderThicknessChanged;
         public event EventHandler BorderColorChanged;
         public event EventHandler BorderStyleChanged;
+        public event EventHandler AutoRoundedCornersChanged;
 
         #region Paint Events
 
@@ -23,6 +24,7 @@ namespace StylizedComponents.Controls
         protected virtual void OnBorderThicknessChanged(EventArgs e) { }
         protected virtual void OnBorderColorChanged(EventArgs e) { }
         protected virtual void OnBorderStyleChanged(EventArgs e) { }
+        protected virtual void OnAutoRoundedCornersChanged(EventArgs e) { }
 
         #endregion
     }

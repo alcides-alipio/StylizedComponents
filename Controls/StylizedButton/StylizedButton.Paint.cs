@@ -1,30 +1,13 @@
-﻿using System;
+﻿using StylizedComponents.Core;
+using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.IO;
 using System.Windows.Forms;
 
 namespace StylizedComponents.Controls
 {
     public partial class StylizedButton
     {
-        private Color ApplyColorFilter(Color baseColor, Color filterColor)
-        {
-            float amount = _hoverFilterStrength < 0f ? 0f : (_hoverFilterStrength > 1f ? 1f : _hoverFilterStrength);
-
-            int r = (int)(baseColor.R + (filterColor.R - baseColor.R) * amount);
-            int g = (int)(baseColor.G + (filterColor.G - baseColor.G) * amount);
-            int b = (int)(baseColor.B + (filterColor.B - baseColor.B) * amount);
-            int a = (int)(baseColor.A + (filterColor.A - baseColor.A) * amount);
-
-            return Color.FromArgb(a, r, g, b);
-        }
-
-        private int CalculateFullRoundBorderRadius()
-        {
-            return (int)(Math.Min(Width, Height) / 2f);
-        }
-
         private void SetButtonShape(GraphicsPath path)
         {
             float half = BorderThickness / 2f;
@@ -36,7 +19,7 @@ namespace StylizedComponents.Controls
                 Height - BorderThickness
             );
 
-            float radius = _autoRoundedCorners ? CalculateFullRoundBorderRadius() : BorderRadius;
+            float radius = AutoRoundedCorners ? Utils.CalculateFullRoundBorderRadius(Width, Height) : BorderRadius;
             float diameter = radius * 2f;
 
             if (radius <= 0)
@@ -67,7 +50,7 @@ namespace StylizedComponents.Controls
             Color backColor = BackColor;
 
             if (_hoverState)
-                backColor = ApplyColorFilter(backColor, _hoverColorFilter);
+                backColor = Utils.ApplyColorFilter(backColor, _hoverColorFilter, _hoverFilterStrength);
 
             using (GraphicsPath path = new GraphicsPath())
             using (Brush brush = new SolidBrush(backColor))
@@ -107,7 +90,7 @@ namespace StylizedComponents.Controls
             Color borderColor = BorderColor;
 
             if (_hoverState)
-                borderColor = ApplyColorFilter(borderColor, _hoverColorFilter);
+                borderColor = Utils.ApplyColorFilter(borderColor, _hoverColorFilter, _hoverFilterStrength);
 
             using (GraphicsPath path = new GraphicsPath())
             {

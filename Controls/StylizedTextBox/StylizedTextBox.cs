@@ -1,4 +1,5 @@
-﻿using System;
+﻿using StylizedComponents.Core;
+using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
@@ -34,11 +35,6 @@ namespace StylizedComponents.Controls
             Controls.Add(_clientArea);
             _clientArea.Controls.Add(_textBox);
 
-            Resize += (s, e) => UpdateAll();
-            BackColorChanged += (s, e) => UpdateColors();
-            ForeColorChanged += (s, e) => UpdateColors();
-            Click += (s, e) => SetTextBoxFocus();
-
             RegisterTextBoxInputEvents();
             RegisterHoverEvents(this);
         }
@@ -47,11 +43,6 @@ namespace StylizedComponents.Controls
         {
             if (disposing)
             {
-                Resize -= (s, e) => UpdateAll();
-                BackColorChanged -= (s, e) => UpdateColors();
-                ForeColorChanged -= (s, e) => UpdateColors();
-                Click -= (s, e) => SetTextBoxFocus();
-
                 UnregisterTextBoxInputEvents();
                 UnregisterHoverEvents(this);
             }
@@ -59,13 +50,17 @@ namespace StylizedComponents.Controls
             base.Dispose(disposing);
         }
 
-        private void UpdateAll()
-        {
-            UpdateTextBox();
-        }
-
         private void UpdateColors()
         {
+            if (IsDisposed || Disposing)
+                return;
+
+            if (_textBox == null)
+                return;
+
+            if (!_textBox.IsHandleCreated)
+                return;
+
             _textBox.BackColor = BackColor;
 
             if (_isPlaceholderActive)
@@ -78,8 +73,22 @@ namespace StylizedComponents.Controls
 
         private void UpdateTextBox()
         {
+            if (IsDisposed || Disposing)
+                return;
+
+            if (_clientArea == null || _textBox == null)
+                return;
+
+            if (_textBox.Parent == null)
+                return;
+
+            if (ClientSize.Width <= 0 || ClientSize.Height <= 0)
+                return;
+
+            float radius = AutoRoundedCorners ? Utils.CalculateFullRoundBorderRadius(Width, Height) : BorderRadius;
+
             double angleRad = 45.0 * (Math.PI / 180.0);
-            int cornerInset = (int)(BorderRadius * (1.0 - Math.Cos(angleRad)));
+            int cornerInset = (int)(radius * (1.0 - Math.Cos(angleRad)));
             int inset = BorderThickness + cornerInset;
 
             int x = inset + 3;

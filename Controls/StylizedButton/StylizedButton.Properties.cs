@@ -8,7 +8,6 @@ namespace StylizedComponents.Controls
     {
         private Color _hoverColorFilter = Color.Black;
         private float _hoverFilterStrength = 0.15f;
-        private bool _autoRoundedCorners = false;
 
         #region Text Properties
 
@@ -34,19 +33,6 @@ namespace StylizedComponents.Controls
 
         [DefaultValue(typeof(Color), "Black")]
         public override Color BorderColor { get => base.BorderColor; set => base.BorderColor = value; }
-
-        [Category("Appearance")]
-        [Description("Automatically makes corners fully rounded.")]
-        [DefaultValue(false)]
-        public bool AutoRoundedCorners
-        {
-            get => _autoRoundedCorners;
-            set
-            {
-                _autoRoundedCorners = value;
-                Invalidate();
-            }
-        }
 
         #endregion
 

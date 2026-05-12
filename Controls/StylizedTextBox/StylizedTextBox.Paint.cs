@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using StylizedComponents.Core;
+using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 
@@ -23,7 +24,7 @@ namespace StylizedComponents.Controls
                 Height - BorderThickness - 1
             );
 
-            float radius = BorderRadius;
+            float radius = AutoRoundedCorners ? Utils.CalculateFullRoundBorderRadius(Width, Height) : BorderRadius;
             float diameter = radius * 2f;
 
             using (GraphicsPath path = new GraphicsPath())

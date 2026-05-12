@@ -14,10 +14,63 @@ namespace StylizedComponents.Controls
         private string _placeholderText = string.Empty;
         private Color _placeholderColor = Color.FromArgb(193, 200, 207);
 
+        private Color _hoverBorderColor = Color.DodgerBlue;
 
-        private Color _hoverBorderColor = Color.Blue;
+        #region Placeholder Properties
 
-        #region Text Properties
+        [Category("Appearance")]
+        [Description("Text displayed when the field is empty.")]
+        [DefaultValue("")]
+        public string PlaceholderText
+        {
+            get => _placeholderText;
+            set
+            {
+                if (value != _placeholderText)
+                {
+                    _placeholderText = value;
+                    SetPlaceholder();
+                    Invalidate();
+                }
+            }
+        }
+
+        [Category("Appearance")]
+        [Description("Color used for the placeholder text.")]
+        [DefaultValue(typeof(Color), "193, 200, 207")]
+        public Color PlaceholderColor
+        {
+            get => _placeholderColor;
+            set
+            {
+                if (value != _placeholderColor)
+                {
+                    _placeholderColor = value;
+                    UpdateColors();
+                }
+            }
+        }
+
+        #endregion
+
+        #region Border Properties
+
+        [Category("Appearance")]
+        [Description("Border color on mouse hover.")]
+        [DefaultValue(typeof(Color), "DodgerBlue")]
+        public Color HoverBorderColor
+        {
+            get => _hoverBorderColor;
+            set
+            {
+                _hoverBorderColor = value;
+                UpdateColors();
+            }
+        }
+
+        #endregion
+
+        #region Foreground Properties
 
         [Browsable(true)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -67,60 +120,6 @@ namespace StylizedComponents.Controls
         {
             get => base.ForeColor;
             set => base.ForeColor = value;
-        }
-
-        #endregion
-
-        #region Placeholder Properties
-
-        [Category("Appearance")]
-        [Description("Text displayed when the field is empty.")]
-        [DefaultValue("")]
-        public string PlaceholderText
-        {
-            get => _placeholderText;
-            set
-            {
-                if (value != _placeholderText)
-                {
-                    _placeholderText = value;
-                    SetPlaceholder();
-                    Invalidate();
-                }
-            }
-        }
-
-        [Category("Appearance")]
-        [Description("Color used for the placeholder text.")]
-        [DefaultValue(typeof(Color), "193, 200, 207")]
-        public Color PlaceholderColor
-        {
-            get => _placeholderColor;
-            set
-            {
-                if (value != _placeholderColor)
-                {
-                    _placeholderColor = value;
-                    UpdateColors();
-                }
-            }
-        }
-
-        #endregion
-
-        #region Border Properties
-
-        [Category("Appearance")]
-        [Description("Border color on mouse hover.")]
-        [DefaultValue(DashStyle.Solid)]
-        public Color HoverBorderColor
-        {
-            get => _hoverBorderColor;
-            set
-            {
-                _hoverBorderColor = value;
-                UpdateColors();
-            }
         }
 
         #endregion

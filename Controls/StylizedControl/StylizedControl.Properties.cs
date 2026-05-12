@@ -11,6 +11,7 @@ namespace StylizedComponents.Controls
         private int _borderThickness = 1;
         private Color _borderColor = Color.FromArgb(213, 218, 223);
         private DashStyle _borderStyle = DashStyle.Solid;
+        private bool _autoRoundedCorners = false;
 
         #region Border Properties
 
@@ -89,6 +90,23 @@ namespace StylizedComponents.Controls
 
                 OnBorderStyleChanged(EventArgs.Empty);
                 BorderStyleChanged?.Invoke(this, EventArgs.Empty);
+
+                Invalidate();
+            }
+        }
+
+        [Category("Appearance")]
+        [Description("Automatically makes corners fully rounded.")]
+        [DefaultValue(false)]
+        public bool AutoRoundedCorners
+        {
+            get => _autoRoundedCorners;
+            set
+            {
+                _autoRoundedCorners = value;
+
+                OnAutoRoundedCornersChanged(EventArgs.Empty);
+                AutoRoundedCornersChanged?.Invoke(this, EventArgs.Empty);
 
                 Invalidate();
             }
