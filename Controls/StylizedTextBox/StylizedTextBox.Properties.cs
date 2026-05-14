@@ -1,7 +1,5 @@
 ﻿using System.ComponentModel;
 using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.Net.Mime;
 using System.Windows.Forms;
 
 namespace StylizedComponents.Controls
@@ -15,6 +13,46 @@ namespace StylizedComponents.Controls
         private Color _placeholderColor = Color.FromArgb(193, 200, 207);
 
         private Color _hoverBorderColor = Color.DodgerBlue;
+
+        private bool _useTransparentBackground = false;
+
+        private ContentAlignment _textAlign = ContentAlignment.MiddleLeft;
+
+        [Browsable(true)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [Category("Appearance")]
+        [DefaultValue(false)]
+        public ContentAlignment TextAlign
+        {
+            get => _textAlign;
+            set
+            {
+                if (value == ContentAlignment.MiddleRight || value == ContentAlignment.TopRight || value == ContentAlignment.BottomRight)
+                    _textBox.TextAlign = HorizontalAlignment.Right;
+
+                if (value == ContentAlignment.MiddleLeft|| value == ContentAlignment.TopLeft || value == ContentAlignment.BottomLeft)
+                    _textBox.TextAlign = HorizontalAlignment.Left;
+
+                if (value == ContentAlignment.MiddleCenter || value == ContentAlignment.TopCenter || value == ContentAlignment.BottomCenter)
+                    _textBox.TextAlign = HorizontalAlignment.Center;
+
+                _textAlign = value;
+            }
+        }
+
+        [Browsable(true)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [Category("Appearance")]
+        [DefaultValue(false)]
+        public bool UseTransparentBackground
+        {
+            get => _useTransparentBackground;
+            set
+            {
+                _useTransparentBackground = value;
+                Invalidate();
+            }
+        }
 
         #region Placeholder Properties
 

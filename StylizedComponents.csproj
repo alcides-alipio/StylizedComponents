@@ -14,7 +14,7 @@
 	<!-- =============== NUGET METADATA =============== -->
 	<PropertyGroup>
 		<PackageId>StylizedComponents</PackageId>
-		<Version>1.2.1</Version>
+		<Version>1.2.2</Version>
 		<Authors>Alcides Alipio</Authors>
 		<Description>WinForms custom controls library</Description>
 

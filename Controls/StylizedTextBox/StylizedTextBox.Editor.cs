@@ -60,12 +60,9 @@ namespace StylizedComponents.Controls
                     new DesignerActionPropertyItem("BackColor", "BackColor", "Section2"),
                     new DesignerActionPropertyItem("PlaceholderColor", "PlaceholderColor", "Section2"),
 
-                    new DesignerActionPropertyItem("ForeColor", "ForeColor", "Section4"),
-                    new DesignerActionPropertyItem("BackColor", "BackColor", "Section4"),
-                    new DesignerActionPropertyItem("PlaceholderColor", "PlaceholderColor", "Section4"),
-
                     new DesignerActionPropertyItem("UseSystemPasswordChar", "UseSystemPasswordChar", "Section3"),
                     new DesignerActionPropertyItem("AutoRoundedCorners", "AutoRoundedCorners", "Section3"),
+                    new DesignerActionPropertyItem("UseTransparentBackground", "UseTransparentBackground", "Section3"),
                 };
             }
 
@@ -163,6 +160,12 @@ namespace StylizedComponents.Controls
             {
                 get => _control.AutoRoundedCorners;
                 set => SetProperty(nameof(_control.AutoRoundedCorners), value);
+            }
+
+            public bool UseTransparentBackground
+            {
+                get => _control.UseTransparentBackground;
+                set => SetProperty(nameof(_control.UseTransparentBackground), value);
             }
 
             #endregion
