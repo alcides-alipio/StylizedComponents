@@ -1,5 +1,4 @@
-﻿using System;
-using System.Drawing;
+﻿using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 
@@ -9,62 +8,9 @@ namespace StylizedComponents.Controls
     {
         private Bitmap _backgroundCache = null;
 
-        protected override void OnPaintContent(PaintEventArgs e)
+        protected override void OnPaint(PaintEventArgs e)
         {
-            base.OnPaintContent(e);
-
-            if (_image == null)
-                return;
-
-            Graphics g = e.Graphics;
-
-            Rectangle destRect;
-
-            switch (_sizeMode)
-            {
-                case PictureBoxSizeMode.Normal:
-                case PictureBoxSizeMode.AutoSize:
-                    destRect = new Rectangle(0, 0, _image.Width, _image.Height);
-                    g.DrawImage(_image, destRect);
-                    break;
-
-                case PictureBoxSizeMode.StretchImage:
-                    destRect = ClientRectangle;
-                    g.DrawImage(_image, destRect);
-                    break;
-
-                case PictureBoxSizeMode.CenterImage:
-                    destRect = new Rectangle(
-                        (ClientSize.Width - _image.Width) / 2,
-                        (ClientSize.Height - _image.Height) / 2,
-                        _image.Width,
-                        _image.Height);
-
-                    g.DrawImage(_image, destRect);
-                    break;
-
-                case PictureBoxSizeMode.Zoom:
-                    float ratioX = (float)ClientSize.Width / _image.Width;
-                    float ratioY = (float)ClientSize.Height / _image.Height;
-                    float ratio = Math.Min(ratioX, ratioY);
-
-                    int width = (int)(_image.Width * ratio);
-                    int height = (int)(_image.Height * ratio);
-
-                    destRect = new Rectangle(
-                        ((ClientSize.Width - width) / 2) + 1,
-                        ((ClientSize.Height - height) / 2) + 1,
-                        width - 2,
-                        height - 2);
-
-                    g.DrawImage(_image, destRect);
-                    break;
-            }
-        }
-
-        protected override void OnPaintBorder(PaintEventArgs e)
-        {
-            base.OnPaintBorder(e);
+            base.OnPaint(e);
 
             if (!DesignMode)
                 return;

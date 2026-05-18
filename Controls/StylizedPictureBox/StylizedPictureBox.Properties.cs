@@ -1,6 +1,6 @@
 ﻿namespace StylizedComponents.Controls
 {
-    public partial class StylizedPictureBox_Beta
+    public partial class StylizedPictureBox
     {
         private bool _useTransparentBackground = false;
 

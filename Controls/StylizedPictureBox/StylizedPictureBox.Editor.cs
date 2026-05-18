@@ -6,15 +6,15 @@ using System.Windows.Forms.Design;
 
 namespace StylizedComponents.Controls
 {
-    public partial class StylizedPictureBox_Beta
+    public partial class StylizedPictureBox
     {
-        public class StylizedPictureBoxDesigner_Beta : ControlDesigner
+        public class StylizedPictureBoxDesigner : ControlDesigner
         {
             public override SelectionRules SelectionRules
             {
                 get
                 {
-                    StylizedPictureBox_Beta control = (StylizedPictureBox_Beta)Control;
+                    StylizedPictureBox control = (StylizedPictureBox)Control;
 
                     if (control.SizeMode == PictureBoxSizeMode.AutoSize)
                     {
@@ -32,21 +32,21 @@ namespace StylizedComponents.Controls
                 {
                     return new DesignerActionListCollection
                     {
-                        new StylizedPictureBoxActionList_Beta(Component)
+                        new StylizedPictureBoxActionList(Component)
                     };
                 }
             }
         }
 
-        public class StylizedPictureBoxActionList_Beta : DesignerActionList
+        public class StylizedPictureBoxActionList : DesignerActionList
         {
-            private StylizedPictureBox_Beta _control;
+            private StylizedPictureBox _control;
             private DesignerActionUIService _service;
 
-            public StylizedPictureBoxActionList_Beta(IComponent component)
+            public StylizedPictureBoxActionList(IComponent component)
                 : base(component)
             {
-                _control = (StylizedPictureBox_Beta)component;
+                _control = (StylizedPictureBox)component;
                 _service = GetService(typeof(DesignerActionUIService)) as DesignerActionUIService;
             }
 
