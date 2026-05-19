@@ -8,29 +8,30 @@ namespace StylizedComponents.Controls
 {
     [ToolboxItem(true)]
     [Designer(typeof(StylizedTextBoxDesigner))]
-    public partial class StylizedTextBox : StylizedControl
+    public partial class StylizedTextBox : StylizedControl, Stylized
     {
         private TextBox _textBox;
         private Panel _clientArea;
         private bool _isPlaceholderActive = false;
         private bool _isFocused = false;
 
-        public StylizedTextBox()
+        public StylizedTextBox() : base()
         {
             base.Size = new Size(200, 36);
-            base.BackColor = Color.White;
             base.ForeColor = Color.FromArgb(125, 137, 149);
             base.Cursor = Cursors.IBeam;
 
             _clientArea = new Panel
             {
-                Margin = Padding.Empty
+                Margin = Padding.Empty,
+                BackColor = _fillColor
             };
             _textBox = new TextBox
             {
                 BorderStyle = System.Windows.Forms.BorderStyle.None,
                 Margin = Padding.Empty,
-                ForeColor = ForeColor
+                ForeColor = ForeColor,
+                BackColor = _fillColor,
             };
             Controls.Add(_clientArea);
             _clientArea.Controls.Add(_textBox);
@@ -61,7 +62,8 @@ namespace StylizedComponents.Controls
             if (!_textBox.IsHandleCreated)
                 return;
 
-            _textBox.BackColor = BackColor;
+            _textBox.BackColor = _fillColor;
+            _clientArea.BackColor = _fillColor;
 
             if (_isPlaceholderActive)
                 _textBox.ForeColor = PlaceholderColor;

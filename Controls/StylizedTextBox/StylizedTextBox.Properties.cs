@@ -14,9 +14,9 @@ namespace StylizedComponents.Controls
 
         private Color _hoverBorderColor = Color.DodgerBlue;
 
-        private bool _useTransparentBackground = false;
-
         private ContentAlignment _textAlign = ContentAlignment.MiddleLeft;
+
+        private Color _fillColor = Color.White;
 
         [Browsable(true)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -37,20 +37,6 @@ namespace StylizedComponents.Controls
                     _textBox.TextAlign = HorizontalAlignment.Center;
 
                 _textAlign = value;
-            }
-        }
-
-        [Browsable(true)]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
-        [Category("Appearance")]
-        [DefaultValue(false)]
-        public bool UseTransparentBackground
-        {
-            get => _useTransparentBackground;
-            set
-            {
-                _useTransparentBackground = value;
-                Invalidate();
             }
         }
 
@@ -164,11 +150,20 @@ namespace StylizedComponents.Controls
 
         #region Background Properties
 
+        [Category("Appearance")]
+        [Description("Color of the text area.")]
         [DefaultValue(typeof(Color), "White")]
-        public override Color BackColor
+        public Color FillColor
         {
-            get => base.BackColor;
-            set => base.BackColor = value;
+            get => _fillColor;
+            set
+            {
+                if (value == _fillColor)
+                    return;
+
+                _fillColor = value;
+                UpdateColors();
+            }
         }
 
         [Browsable(false)]

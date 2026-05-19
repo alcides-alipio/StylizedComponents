@@ -28,11 +28,16 @@ namespace StylizedComponents.Controls
 
         protected override void OnCreateControl()
         {
-            base.OnCreateControl();
+            SuspendLayout();
 
             UpdateTextBox();
+            UpdateColors();
             SetPlaceholder();
             Invalidate();
+
+            ResumeLayout(false);
+
+            base.OnCreateControl();
         }
 
         #endregion

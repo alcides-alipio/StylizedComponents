@@ -45,7 +45,7 @@ namespace StylizedComponents.Controls
 
                 path.CloseFigure();
 
-                using (SolidBrush brush = new SolidBrush(BackColor))
+                using (SolidBrush brush = new SolidBrush(_fillColor))
                 {
                     g.FillPath(brush, path);
                 }
@@ -138,7 +138,7 @@ namespace StylizedComponents.Controls
                 return;
             }
 
-            if (!_useTransparentBackground)
+            if (BackColor != Color.Transparent)
             {
                 base.OnPaintBackground(e);
                 return;
