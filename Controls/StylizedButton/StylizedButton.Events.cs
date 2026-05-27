@@ -20,6 +20,8 @@ namespace StylizedComponents.Controls
             }
         }
 
+        #region Hover Events
+
         private void RegisterHoverEvents(Control control)
         {
             control.MouseEnter += HandleMouseEnter;
@@ -48,5 +50,18 @@ namespace StylizedComponents.Controls
             _hoverState = false;
             Invalidate();
         }
+
+        #endregion
+
+        #region Layout Events
+
+        protected override void OnResize(EventArgs e)
+        {
+            base.OnResize(e);
+
+            Invalidate();
+        }
+
+        #endregion
     }
 }

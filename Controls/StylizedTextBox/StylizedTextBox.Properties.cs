@@ -36,6 +36,15 @@ namespace StylizedComponents.Controls
                 if (value == ContentAlignment.MiddleCenter || value == ContentAlignment.TopCenter || value == ContentAlignment.BottomCenter)
                     _textBox.TextAlign = HorizontalAlignment.Center;
 
+                if (value == ContentAlignment.TopLeft || value == ContentAlignment.TopCenter || value == ContentAlignment.TopRight)
+                    _textBox.Dock = DockStyle.Top;
+
+                if (value == ContentAlignment.MiddleLeft || value == ContentAlignment.MiddleCenter || value == ContentAlignment.MiddleRight)
+                    _textBox.Dock = DockStyle.None;
+
+                if (value == ContentAlignment.BottomLeft || value == ContentAlignment.BottomCenter || value == ContentAlignment.BottomRight)
+                    _textBox.Dock = DockStyle.Bottom;
+
                 _textAlign = value;
             }
         }
@@ -139,7 +148,7 @@ namespace StylizedComponents.Controls
             }
         }
 
-        [DefaultValue(typeof(Color), "125, 137, 149")]
+        [DefaultValue(typeof(Color), "ControlText")]
         public override Color ForeColor
         {
             get => base.ForeColor;

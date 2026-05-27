@@ -18,7 +18,6 @@ namespace StylizedComponents.Controls
         public StylizedTextBox() : base()
         {
             base.Size = new Size(200, 36);
-            base.ForeColor = Color.FromArgb(125, 137, 149);
             base.Cursor = Cursors.IBeam;
 
             _clientArea = new Panel
