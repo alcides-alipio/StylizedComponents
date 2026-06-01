@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 
 namespace StylizedComponents.Controls
@@ -19,6 +21,39 @@ namespace StylizedComponents.Controls
                 Invalidate();
             }
         }
+
+        #region Paint Events
+
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            if (Parent == null)
+            {
+                base.OnPaint(e);
+                return;
+            }
+
+            Graphics g = e.Graphics;
+
+            g.SmoothingMode = SmoothingMode.AntiAlias;
+            g.PixelOffsetMode = PixelOffsetMode.Half;
+            g.CompositingQuality = CompositingQuality.HighSpeed;
+
+            PaintContent(g);
+            PaintBorder(g);
+        }
+
+        protected override void OnPaintBackground(PaintEventArgs e)
+        {
+            if (Parent == null)
+            {
+                base.OnPaintBackground(e);
+                return;
+            }
+
+            PaintBackground(e);
+        }
+
+        #endregion
 
         #region Hover Events
 
@@ -58,7 +93,6 @@ namespace StylizedComponents.Controls
         protected override void OnResize(EventArgs e)
         {
             base.OnResize(e);
-
             Invalidate();
         }
 

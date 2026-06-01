@@ -7,7 +7,8 @@ namespace StylizedComponents.Controls
     public partial class StylizedLinkLabel
     {
         private Color _hoverColorFilter = Color.Black;
-        private float _hoverFilterStrength = 0.15f;
+        private float _hoverFilterStrength = 0.2f;
+
         private LinkBehavior _linkBehavior = LinkBehavior.SystemDefault;
 
         public LinkBehavior LinkBehavior
@@ -16,10 +17,12 @@ namespace StylizedComponents.Controls
             set => _linkBehavior = value;
         }
 
+        
+
         #region Hover Properties
 
-        [Category("Appearance")]
-        [Description("Color filter on mouse hover.")]
+        [Category("StylizedComponents Properties")]
+        [Description("Sets the hover filter color for this control.")]
         [DefaultValue(typeof(Color), "Black")]
         public Color HoverColorFilter
         {
@@ -27,49 +30,13 @@ namespace StylizedComponents.Controls
             set => _hoverColorFilter = value;
         }
 
-        [Category("Appearance")]
-        [Description("Strength of filter on mouse hover.")]
-        [DefaultValue(0.15f)]
+        [Category("StylizedComponents Properties")]
+        [Description("Sets the Hover filter strength for this control.")]
+        [DefaultValue(0.2f)]
         public float HoverFilterStrength
         {
             get => _hoverFilterStrength;
             set => _hoverFilterStrength = value;
-        }
-
-        #endregion
-
-        #region Foreground Properties
-
-        [DefaultValue(typeof(Font), "Segoe UI, 9pt")]
-        public override Font Font
-        {
-            get => base.Font;
-            set => base.Font = value;
-        }
-
-        [DefaultValue(typeof(Color), "Blue")]
-        public override Color ForeColor
-        {
-            get => base.ForeColor;
-            set => base.ForeColor = value;
-        }
-
-        #endregion
-
-        #region Border Properties
-
-        [DefaultValue(0)]
-        public override int BorderThickness
-        {
-            get => base.BorderThickness;
-            set => base.BorderThickness = value;
-        }
-
-        [DefaultValue(typeof(Color), "Black")]
-        public override Color BorderColor
-        {
-            get => base.BorderColor;
-            set => base.BorderColor = value;
         }
 
         #endregion
@@ -91,6 +58,44 @@ namespace StylizedComponents.Controls
                 AjustSize(false);
             }
         }
+
+        #endregion
+
+        #region Overridden Properties
+
+        #region Foreground Properties
+
+        [DefaultValue(typeof(Font), "Segoe UI, 9pt")]
+        [Description("Sets the text font for this control")]
+        public override Font Font
+        {
+            get => base.Font;
+            set => base.Font = value;
+        }
+
+        [Description("Sets the text for this control")]
+        public override string Text
+        {
+            get => base.Text;
+            set
+            {
+                if (value == base.Text)
+                    return;
+
+                base.Text = value;
+                Invalidate();
+            }
+        }
+
+        [DefaultValue(typeof(Color), "Blue")]
+        [Description("Sets the text color for this control.")]
+        public override Color ForeColor
+        {
+            get => base.ForeColor;
+            set => base.ForeColor = value;
+        }
+
+        #endregion
 
         #endregion
     }

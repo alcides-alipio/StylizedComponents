@@ -6,10 +6,12 @@ using System.Windows.Forms;
 
 namespace StylizedComponents.Controls
 {
-    [ToolboxItem(true)]
     [Designer(typeof(StylizedTextBoxDesigner))]
-    public partial class StylizedTextBox : StylizedControl, Stylized
+    [DesignerCategory("Code")]
+    public partial class StylizedTextBox : Control
     {
+        private readonly TransparentBackgroundRenderer _transparentBackgroundRenderer;
+
         private TextBox _textBox;
         private Panel _clientArea;
         private bool _isPlaceholderActive = false;
@@ -17,8 +19,19 @@ namespace StylizedComponents.Controls
 
         public StylizedTextBox() : base()
         {
+            _transparentBackgroundRenderer =
+                new TransparentBackgroundRenderer(this);
+
             base.Size = new Size(200, 36);
             base.Cursor = Cursors.IBeam;
+
+            SetStyle(
+                ControlStyles.UserPaint |
+                ControlStyles.AllPaintingInWmPaint |
+                ControlStyles.OptimizedDoubleBuffer |
+                ControlStyles.SupportsTransparentBackColor,
+                true);
+            UpdateStyles();
 
             _clientArea = new Panel
             {
@@ -68,8 +81,6 @@ namespace StylizedComponents.Controls
                 _textBox.ForeColor = PlaceholderColor;
             else
                 _textBox.ForeColor = ForeColor;
-
-            Invalidate();
         }
 
         private void UpdateTextBox()
@@ -86,7 +97,7 @@ namespace StylizedComponents.Controls
             if (ClientSize.Width <= 0 || ClientSize.Height <= 0)
                 return;
 
-            float radius = AutoRoundedCorners ? Utils.CalculateFullRoundBorderRadius(Width, Height) : BorderRadius;
+            float radius = _autoRoundedCorners ? Utils.CalculateFullRoundBorderRadius(Width, Height) : _cornerRadius;
 
             double angleRad = 45.0 * (Math.PI / 180.0);
             int cornerInset = (int)(radius * (1.0 - Math.Cos(angleRad)));

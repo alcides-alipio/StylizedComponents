@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -38,6 +40,38 @@ namespace StylizedComponents.Controls
             ResumeLayout(false);
 
             base.OnCreateControl();
+        }
+
+        #endregion
+
+        #region Paint Events
+
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            if (Parent == null)
+            {
+                base.OnPaint(e);
+                return;
+            }
+
+            Graphics g = e.Graphics;
+
+            g.SmoothingMode = SmoothingMode.AntiAlias;
+            g.PixelOffsetMode = PixelOffsetMode.Half;
+            g.CompositingQuality = CompositingQuality.HighSpeed;
+
+            PaintContent(e);
+        }
+
+        protected override void OnPaintBackground(PaintEventArgs e)
+        {
+            if (Parent == null)
+            {
+                base.OnPaintBackground(e);
+                return;
+            }
+
+            PaintBackground(e);
         }
 
         #endregion
@@ -131,45 +165,6 @@ namespace StylizedComponents.Controls
             base.OnBackColorChanged(e);
 
             UpdateColors();
-        }
-
-        #endregion
-
-        #region Border Events
-
-        protected override void OnBorderRadiusChanged(EventArgs e)
-        {
-            base.OnBorderRadiusChanged(e);
-
-            UpdateTextBox();
-        }
-
-        protected override void OnBorderThicknessChanged(EventArgs e)
-        {
-            base.OnBorderThicknessChanged(e);
-
-            UpdateTextBox();
-        }
-
-        protected override void OnBorderColorChanged(EventArgs e)
-        {
-            base.OnBorderColorChanged(e);
-
-            UpdateColors();
-        }
-
-        protected override void OnBorderStyleChanged(EventArgs e)
-        {
-            base.OnBorderStyleChanged(e);
-
-            UpdateTextBox();
-        }
-
-        protected override void OnAutoRoundedCornersChanged(EventArgs e)
-        {
-            base.OnAutoRoundedCornersChanged(e);
-
-            UpdateTextBox();
         }
 
         #endregion

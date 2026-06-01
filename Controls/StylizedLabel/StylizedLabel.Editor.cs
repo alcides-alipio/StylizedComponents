@@ -8,15 +8,15 @@ using System.Windows.Forms.Design;
 
 namespace StylizedComponents.Controls
 {
-    public partial class StylizedLinkLabel
+    public partial class StylizedLabel
     {
-        public class StylizedLinkLabelDesigner : ControlDesigner
+        public class StylizedLabelDesigner : ControlDesigner
         {
             public override SelectionRules SelectionRules
             {
                 get
                 {
-                    StylizedLinkLabel control = (StylizedLinkLabel)Control;
+                    StylizedLabel control = (StylizedLabel)Control;
 
                     if (control.AutoSize)
                     {
@@ -34,50 +34,33 @@ namespace StylizedComponents.Controls
                 {
                     return new DesignerActionListCollection
                     {
-                        new StylizedLinkLabelActionList(Component)
+                        new StylizedLabelActionList(Component)
                     };
                 }
             }
         }
 
-        public class StylizedLinkLabelActionList : DesignerActionList
+        public class StylizedLabelActionList : DesignerActionList
         {
-            private StylizedLinkLabel _control;
+            private StylizedLabel _control;
             private DesignerActionUIService _service;
 
-            public StylizedLinkLabelActionList(IComponent component)
+            public StylizedLabelActionList(IComponent component)
                 : base(component)
             {
-                _control = (StylizedLinkLabel)component;
+                _control = (StylizedLabel)component;
                 _service = GetService(typeof(DesignerActionUIService)) as DesignerActionUIService;
             }
 
             public override DesignerActionItemCollection GetSortedActionItems()
             {
-                DesignerActionPropertyItem CreateItem(string propertyName, string category)
-                {
-                    var prop = TypeDescriptor.GetProperties(_control)[propertyName];
-
-                    return new DesignerActionPropertyItem(
-                        prop.Name,
-                        prop.Name,
-                        category,
-                        prop.Description
-                    );
-                }
-
                 return new DesignerActionItemCollection
                 {
-                    new DesignerActionHeaderItem("Common Tasks"),
-                    CreateItem("Font", "Common Tasks"),
-                    CreateItem("Text", "Common Tasks"),
+                    new DesignerActionPropertyItem("Font", "Font", "Section 1"),
+                    new DesignerActionPropertyItem("Text", "Text", "Section 1"),
 
-                    new DesignerActionHeaderItem("Appearance"),
-                    CreateItem("ForeColor", "Appearance"),
-                    CreateItem("BackColor", "Appearance"),
-                    CreateItem("HoverColorFilter", "Appearance"),
-                    CreateItem("LinkBehavior", "Appearance"),
-                    CreateItem("HoverFilterStrength", "Appearance"),
+                    new DesignerActionPropertyItem("ForeColor", "ForeColor", "Section2"),
+                    new DesignerActionPropertyItem("BackColor", "BackColor", "Section2"),
                 };
             }
 
@@ -105,7 +88,7 @@ namespace StylizedComponents.Controls
 
             #endregion
 
-            #region Appearance
+            #region Section 2
 
             public Color ForeColor
             {
@@ -117,24 +100,6 @@ namespace StylizedComponents.Controls
             {
                 get => _control.BackColor;
                 set => SetProperty(nameof(_control.BackColor), value);
-            }
-
-            public LinkBehavior LinkBehavior
-            {
-                get => _control.LinkBehavior;
-                set => SetProperty(nameof(_control.LinkBehavior), value);
-            }
-
-            public Color HoverColorFilter
-            {
-                get => _control.HoverColorFilter;
-                set => SetProperty(nameof(_control.HoverColorFilter), value);
-            }
-
-            public float HoverFilterStrength
-            {
-                get => _control.HoverFilterStrength;
-                set => SetProperty(nameof(_control.HoverFilterStrength), value);
             }
 
             #endregion

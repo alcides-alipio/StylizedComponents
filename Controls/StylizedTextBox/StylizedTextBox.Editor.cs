@@ -45,24 +45,39 @@ namespace StylizedComponents.Controls
 
             public override DesignerActionItemCollection GetSortedActionItems()
             {
+                DesignerActionPropertyItem CreateItem(string propertyName, string category)
+                {
+                    var prop = TypeDescriptor.GetProperties(_control)[propertyName];
+
+                    return new DesignerActionPropertyItem(
+                        prop.Name,
+                        prop.Name,
+                        category,
+                        prop.Description
+                    );
+                }
+
                 return new DesignerActionItemCollection
                 {
-                    new DesignerActionPropertyItem("Font", "Font", "Section1"),
-                    new DesignerActionPropertyItem("Text", "Text", "Section1"),
-                    new DesignerActionPropertyItem("PlaceholderText", "PlaceholderText", "Section1"),
+                    new DesignerActionHeaderItem("Common Tasks"),
+                    CreateItem("Font", "Common Tasks"),
+                    CreateItem("Text", "Common Tasks"),
+                    CreateItem("PlaceholderText", "Common Tasks"),
 
-                    new DesignerActionPropertyItem("BorderRadius", "BorderRadius", "Section2"),
-                    new DesignerActionPropertyItem("BorderThickness", "BorderThickness", "Section2"),
-                    new DesignerActionPropertyItem("BorderStyle", "BorderStyle", "Section2"),
-                    new DesignerActionPropertyItem("BorderColor", "BorderColor", "Section2"),
-                    new DesignerActionPropertyItem("HoverBorderColor", "HoverBorderColor", "Section2"),
-                    new DesignerActionPropertyItem("ForeColor", "ForeColor", "Section2"),
-                    new DesignerActionPropertyItem("FillColor", "FillColor", "Section2"),
-                    new DesignerActionPropertyItem("BackColor", "BackColor", "Section2"),
-                    new DesignerActionPropertyItem("PlaceholderColor", "PlaceholderColor", "Section2"),
+                    new DesignerActionHeaderItem("Appearance"),
+                    CreateItem("ForeColor", "Appearance"),
+                    CreateItem("PlaceholderColor", "Appearance"),
+                    CreateItem("BackColor", "Appearance"),
+                    CreateItem("FillColor", "Appearance"),
+                    CreateItem("BorderColor", "Appearance"),
+                    CreateItem("HoverBorderColor", "Appearance"),
+                    CreateItem("CornerRadius", "Appearance"),
+                    CreateItem("BorderThickness", "Appearance"),
+                    CreateItem("BorderStyle", "Appearance"),
 
-                    new DesignerActionPropertyItem("UseSystemPasswordChar", "UseSystemPasswordChar", "Section3"),
-                    new DesignerActionPropertyItem("AutoRoundedCorners", "AutoRoundedCorners", "Section3"),
+                    new DesignerActionHeaderItem("Behavior"),
+                    CreateItem("UseSystemPasswordChar", "Behavior"),
+                    CreateItem("AutoRoundedCorners", "Behavior"),
                 };
             }
 
@@ -74,7 +89,7 @@ namespace StylizedComponents.Controls
                 _service?.Refresh(_control);
             }
 
-            #region Section 1
+            #region Common Tasks
 
             public Font Font
             {
@@ -96,24 +111,30 @@ namespace StylizedComponents.Controls
 
             #endregion
 
-            #region Setion 2
+            #region Appearance
 
-            public int BorderRadius
+            public Color ForeColor
             {
-                get => _control.BorderRadius;
-                set => SetProperty(nameof(_control.BorderRadius), value);
+                get => _control.ForeColor;
+                set => SetProperty(nameof(_control.ForeColor), value);
             }
 
-            public int BorderThickness
+            public Color PlaceholderColor
             {
-                get => _control.BorderThickness;
-                set => SetProperty(nameof(_control.BorderThickness), value);
+                get => _control.PlaceholderColor;
+                set => SetProperty(nameof(_control.PlaceholderColor), value);
             }
 
-            public DashStyle BorderStyle
+            public Color BackColor
             {
-                get => _control.BorderStyle;
-                set => SetProperty(nameof(_control.BorderStyle), value);
+                get => _control.BackColor;
+                set => SetProperty(nameof(_control.BackColor), value);
+            }
+
+            public Color FillColor
+            {
+                get => _control.FillColor;
+                set => SetProperty(nameof(_control.FillColor), value);
             }
 
             public Color BorderColor
@@ -128,33 +149,27 @@ namespace StylizedComponents.Controls
                 set => SetProperty(nameof(_control.HoverBorderColor), value);
             }
 
-            public Color ForeColor
+            public int CornerRadius
             {
-                get => _control.ForeColor;
-                set => SetProperty(nameof(_control.ForeColor), value);
+                get => _control._cornerRadius;
+                set => SetProperty(nameof(_control._cornerRadius), value);
             }
 
-            public Color FillColor
+            public int BorderThickness
             {
-                get => _control.FillColor;
-                set => SetProperty(nameof(_control.FillColor), value);
+                get => _control.BorderThickness;
+                set => SetProperty(nameof(_control.BorderThickness), value);
             }
 
-            public Color BackColor
+            public DashStyle BorderStyle
             {
-                get => _control.BackColor;
-                set => SetProperty(nameof(_control.BackColor), value);
-            }
-
-            public Color PlaceholderColor
-            {
-                get => _control.PlaceholderColor;
-                set => SetProperty(nameof(_control.PlaceholderColor), value);
+                get => _control.BorderStyle;
+                set => SetProperty(nameof(_control.BorderStyle), value);
             }
 
             #endregion
 
-            #region Setion 3
+            #region Behavior
 
             public bool UseSystemPasswordChar
             {

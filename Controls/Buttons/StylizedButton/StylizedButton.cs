@@ -1,22 +1,31 @@
-﻿using System.ComponentModel;
+﻿using StylizedComponents.Core;
+using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 
 namespace StylizedComponents.Controls
 {
-    [ToolboxItem(true)]
     [Designer(typeof(StylizedButtonDesigner))]
-    public partial class StylizedButton : StylizedControl
+    [DesignerCategory("Code")]
+    public partial class StylizedButton : Control
     {
+        private readonly TransparentBackgroundRenderer _transparentBackgroundRenderer;
+
         public StylizedButton()
         {
-            base.Size = new Size(180, 45);
-            base.BackColor = Color.FromArgb(94, 148, 255);
+            _transparentBackgroundRenderer = new TransparentBackgroundRenderer(this);
+
             base.ForeColor = Color.White;
             base.Font = new Font("Segoe UI", 9);
+            Size = new Size(180, 45);
 
-            base.BorderThickness = 0;
-            base.BorderColor = Color.Black;
+            SetStyle(
+                ControlStyles.UserPaint |
+                ControlStyles.AllPaintingInWmPaint |
+                ControlStyles.OptimizedDoubleBuffer |
+                ControlStyles.SupportsTransparentBackColor,
+                true);
+            UpdateStyles();
 
             RegisterHoverEvents(this);
         }

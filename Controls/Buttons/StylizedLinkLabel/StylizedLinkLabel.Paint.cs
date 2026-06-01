@@ -8,16 +8,8 @@ namespace StylizedComponents.Controls
 {
     public partial class StylizedLinkLabel
     {
-        protected override void OnPaintContent(PaintEventArgs e)
+        protected void PaintContent(Graphics g)
         {
-            base.OnPaintContent(e);
-
-            Graphics g = e.Graphics;
-
-            g.SmoothingMode = SmoothingMode.AntiAlias;
-            g.PixelOffsetMode = PixelOffsetMode.Half;
-            g.CompositingQuality = CompositingQuality.HighSpeed;
-
             var flags = TextFormatFlags.HorizontalCenter |
                TextFormatFlags.VerticalCenter |
                TextFormatFlags.SingleLine |
@@ -60,23 +52,15 @@ namespace StylizedComponents.Controls
             );
         }
 
-        protected override void OnPaintBackground(PaintEventArgs e)
+        protected void PaintBackground(PaintEventArgs e)
         {
-            if (Parent == null)
+            if (BackColor != Color.Transparent)
             {
                 base.OnPaintBackground(e);
                 return;
             }
 
-            Graphics g = e.Graphics;
-            var state = g.Save();
-
-            g.TranslateTransform(-Left, -Top);
-            PaintEventArgs pea = new PaintEventArgs(g, Parent.ClientRectangle);
-            InvokePaintBackground(Parent, pea);
-            InvokePaint(Parent, pea);
-
-            g.Restore(state);
+            _transparentBackgroundRenderer.Paint(e.Graphics);
         }
     }
 }

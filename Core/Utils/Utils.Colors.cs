@@ -19,7 +19,7 @@ namespace StylizedComponents.Core
 
         public static int CalculateFullRoundBorderRadius(int width, int height)
         {
-            return (int)(Math.Min(width, height) / 2.1f);
+            return (int)(Math.Min(width, height) / 2f);
         }
     }
 }

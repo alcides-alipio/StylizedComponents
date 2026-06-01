@@ -5,23 +5,8 @@ using System.Windows.Forms;
 
 namespace StylizedComponents.Controls
 {
-    public partial class StylizedLinkLabel
+    public partial class StylizedLabel
     {
-        private bool _hoverState;
-
-        public bool HoverState
-        {
-            get => _hoverState;
-            private set
-            {
-                if (_hoverState == value)
-                    return;
-
-                _hoverState = value;
-                Invalidate();
-            }
-        }
-
         #region Paint Events
 
         protected override void OnPaint(PaintEventArgs e)
@@ -38,7 +23,7 @@ namespace StylizedComponents.Controls
             g.PixelOffsetMode = PixelOffsetMode.Half;
             g.CompositingQuality = CompositingQuality.HighSpeed;
 
-            PaintContent(g);
+            PaintContent(e);
         }
 
         protected override void OnPaintBackground(PaintEventArgs e)
@@ -50,39 +35,6 @@ namespace StylizedComponents.Controls
             }
 
             PaintBackground(e);
-        }
-
-        #endregion
-
-        #region Hover Events
-
-        private void RegisterHoverEvents(Control control)
-        {
-            control.MouseEnter += HandleMouseEnter;
-            control.MouseLeave += HandleMouseLeave;
-
-            foreach (Control child in control.Controls)
-                RegisterHoverEvents(child);
-        }
-        private void UnregisterHoverEvents(Control control)
-        {
-            control.MouseEnter -= HandleMouseEnter;
-            control.MouseLeave -= HandleMouseLeave;
-
-            foreach (Control child in control.Controls)
-                UnregisterHoverEvents(child);
-        }
-
-        private void HandleMouseEnter(object sender, EventArgs e)
-        {
-            _hoverState = true;
-            Invalidate();
-        }
-
-        private void HandleMouseLeave(object sender, EventArgs e)
-        {
-            _hoverState = false;
-            Invalidate();
         }
 
         #endregion

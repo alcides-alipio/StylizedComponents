@@ -11,13 +11,6 @@ namespace StylizedComponents.Controls
     {
         public class StylizedButtonDesigner : ControlDesigner
         {
-            public override void InitializeNewComponent(IDictionary defaultValues)
-            {
-                base.InitializeNewComponent(defaultValues);
-
-                var control = (StylizedButton)Control;
-            }
-
             public override DesignerActionListCollection ActionLists
             {
                 get
@@ -32,8 +25,8 @@ namespace StylizedComponents.Controls
 
         public class StylizedButtonActionList : DesignerActionList
         {
-            private StylizedButton _control;
-            private DesignerActionUIService _service;
+            private readonly StylizedButton _control;
+            private readonly DesignerActionUIService _service;
 
             public StylizedButtonActionList(IComponent component)
                 : base(component)
@@ -44,21 +37,39 @@ namespace StylizedComponents.Controls
 
             public override DesignerActionItemCollection GetSortedActionItems()
             {
+                DesignerActionPropertyItem CreateItem(string propertyName, string category)
+                {
+                    var prop = TypeDescriptor.GetProperties(_control)[propertyName];
+
+                    return new DesignerActionPropertyItem(
+                        prop.Name,
+                        prop.Name,
+                        category,
+                        prop.Description
+                    );
+                }
+
                 return new DesignerActionItemCollection
                 {
-                    new DesignerActionPropertyItem("Font", "Font", "Section 1"),
-                    new DesignerActionPropertyItem("Text", "Text", "Section 1"),
+                    new DesignerActionHeaderItem("Common Tasks"),
+                    CreateItem("Font", "Common Tasks"),
+                    CreateItem("Text", "Common Tasks"),
+                    CreateItem("TextAlign", "Common Tasks"),
 
-                    new DesignerActionPropertyItem("BorderRadius", "BorderRadius", "Section2"),
-                    new DesignerActionPropertyItem("BorderThickness", "BorderThickness", "Section2"),
-                    new DesignerActionPropertyItem("BorderStyle", "BorderStyle", "Section2"),
-                    new DesignerActionPropertyItem("BorderColor", "BorderColor", "Section2"),
-                    new DesignerActionPropertyItem("ForeColor", "ForeColor", "Section2"),
-                    new DesignerActionPropertyItem("BackColor", "BackColor", "Section2"),
-                    new DesignerActionPropertyItem("HoverColorFilter", "HoverColorFilter", "Section2"),
-                    new DesignerActionPropertyItem("HoverFilterStrength", "HoverFilterStrength", "Section2"),
+                    new DesignerActionHeaderItem("Appearance"),
+                    CreateItem("ForeColor", "Appearance"),
+                    CreateItem("FillColor", "Appearance"),
+                    CreateItem("BackColor", "Appearance"),
+                    CreateItem("BorderColor", "Appearance"),
+                    CreateItem("HoverColorFilter", "Appearance"),
+                    CreateItem("CornerRadius", "Appearance"),
+                    CreateItem("BorderThickness", "Appearance"),
+                    CreateItem("BorderStyle", "Appearance"),
+                    CreateItem("HoverFilterStrength", "Appearance"),
+                    CreateItem("CornerRadius", "Appearance"),
 
-                    new DesignerActionPropertyItem("AutoRoundedCorners", "AutoRoundedCorners", "Section3"),
+                    new DesignerActionHeaderItem("Behavior"),
+                    CreateItem("AutoRoundCorners", "Behavior")
                 };
             }
 
@@ -70,7 +81,7 @@ namespace StylizedComponents.Controls
                 _service?.Refresh(_control);
             }
 
-            #region Section 1
+            #region Common Tasks
 
             public Font Font
             {
@@ -84,14 +95,50 @@ namespace StylizedComponents.Controls
                 set => SetProperty(nameof(_control.Text), value);
             }
 
+            public ContentAlignment TextAlign
+            {
+                get => _control.TextAlign;
+                set => SetProperty(nameof(_control.TextAlign), value);
+            }
+
             #endregion
 
-            #region Section 2
+            #region Appearance
 
-            public int BorderRadius
+            public Color ForeColor
             {
-                get => _control.BorderRadius;
-                set => SetProperty(nameof(_control.BorderRadius), value);
+                get => _control.ForeColor;
+                set => SetProperty(nameof(_control.ForeColor), value);
+            }
+
+            public Color FillColor
+            {
+                get => _control.FillColor;
+                set => SetProperty(nameof(_control.FillColor), value);
+            }
+
+            public Color BackColor
+            {
+                get => _control.BackColor;
+                set => SetProperty(nameof(_control.BackColor), value);
+            }
+
+            public Color BorderColor
+            {
+                get => _control.BorderColor;
+                set => SetProperty(nameof(_control.BorderColor), value);
+            }
+
+            public Color HoverColorFilter
+            {
+                get => _control.HoverColorFilter;
+                set => SetProperty(nameof(_control.HoverColorFilter), value);
+            }
+
+            public int CornerRadius
+            {
+                get => _control.CornerRadius;
+                set => SetProperty(nameof(_control.CornerRadius), value);
             }
 
             public int BorderThickness
@@ -106,30 +153,6 @@ namespace StylizedComponents.Controls
                 set => SetProperty(nameof(_control.BorderStyle), value);
             }
 
-            public Color BorderColor
-            {
-                get => _control.BorderColor;
-                set => SetProperty(nameof(_control.BorderColor), value);
-            }
-
-            public Color ForeColor
-            {
-                get => _control.ForeColor;
-                set => SetProperty(nameof(_control.ForeColor), value);
-            }
-
-            public Color BackColor
-            {
-                get => _control.BackColor;
-                set => SetProperty(nameof(_control.BackColor), value);
-            }
-
-            public Color HoverColorFilter
-            {
-                get => _control.HoverColorFilter;
-                set => SetProperty(nameof(_control.HoverColorFilter), value);
-            }
-
             public float HoverFilterStrength
             {
                 get => _control.HoverFilterStrength;
@@ -138,11 +161,12 @@ namespace StylizedComponents.Controls
 
             #endregion
 
-            #region Section 3
-            public bool AutoRoundedCorners
+            #region Behavior
+
+            public bool AutoRoundCorners
             {
-                get => _control.AutoRoundedCorners;
-                set => SetProperty(nameof(_control.AutoRoundedCorners), value);
+                get => _control.AutoRoundCorners;
+                set => SetProperty(nameof(_control.AutoRoundCorners), value);
             }
 
             #endregion

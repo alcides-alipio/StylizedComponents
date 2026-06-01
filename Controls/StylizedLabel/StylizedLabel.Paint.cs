@@ -1,96 +1,41 @@
-﻿using System.Drawing;
+﻿using StylizedComponents.Core;
+using System;
+using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 
 namespace StylizedComponents.Controls
 {
     public partial class StylizedLabel
     {
-        private Bitmap _backgroundCache;
-
-        private Point GetControlRelativeOffset(Control control)
+        protected void PaintContent(PaintEventArgs e)
         {
-            int x = control.Left;
-            int y = control.Top;
+            Graphics g = e.Graphics;
 
-            if (control.Parent is ScrollableControl scrollable)
-            {
-                x += scrollable.AutoScrollPosition.X;
-                y += scrollable.AutoScrollPosition.Y;
-            }
+            var flags = TextFormatFlags.HorizontalCenter |
+               TextFormatFlags.VerticalCenter |
+               TextFormatFlags.SingleLine |
+               TextFormatFlags.NoPadding;
 
-            return new Point(x, y);
+            TextRenderer.DrawText(
+                g,
+                Text,
+                Font,
+                ClientRectangle,
+                ForeColor,
+                flags
+            );
         }
 
-        private Point GetParentRelativeOffset()
+        protected void PaintBackground(PaintEventArgs e)
         {
-            int x = Left;
-            int y = Top;
-
-            if (Parent is ScrollableControl scrollable)
-            {
-                x += scrollable.AutoScrollPosition.X;
-                y += scrollable.AutoScrollPosition.Y;
-            }
-
-            return new Point(x, y);
-        }
-
-        private void BuildBackgroundCache()
-        {
-            _backgroundCache = new Bitmap(Parent.ClientSize.Width, Parent.ClientSize.Height);
-
-            using (Graphics bmpG = Graphics.FromImage(_backgroundCache))
-            {
-                bmpG.Clear(Parent.BackColor);
-
-                int zIndex = Parent.Controls.GetChildIndex(this);
-
-                for (int i = Parent.Controls.Count - 1; i > zIndex; i--)
-                {
-                    Control control = Parent.Controls[i];
-
-                    if (!control.Visible || control.Width <= 0 || control.Height <= 0)
-                        continue;
-
-                    using (Bitmap controlBitmap = new Bitmap(control.Width, control.Height))
-                    {
-                        control.DrawToBitmap(
-                            controlBitmap,
-                            new Rectangle(0, 0, control.Width, control.Height)
-                        );
-
-                        Point p = GetControlRelativeOffset(control);
-                        bmpG.DrawImageUnscaled(controlBitmap, p.X, p.Y);
-                    }
-                }
-            }
-        }
-
-        protected override void OnPaintBackground(PaintEventArgs e)
-        {
-            if (Parent == null)
-            {
-                base.OnPaintBackground(e);
-                return;
-            }
-
             if (BackColor != Color.Transparent)
             {
                 base.OnPaintBackground(e);
                 return;
             }
 
-            if (_backgroundCache == null)
-            {
-                BuildBackgroundCache();
-            }
-
-            Point offset = GetParentRelativeOffset();
-
-            var state = e.Graphics.Save();
-            e.Graphics.TranslateTransform(-offset.X, -offset.Y);
-            e.Graphics.DrawImageUnscaled(_backgroundCache, 0, 0);
-            e.Graphics.Restore(state);
+            _transparentBackgroundRenderer.Paint(e.Graphics);
         }
     }
 }
