@@ -34,6 +34,11 @@
 		<PublishRepositoryUrl>true</PublishRepositoryUrl>
 	</PropertyGroup>
 
+		<!-- ================= README ================= -->
+	<ItemGroup>
+		<None Include="README.md" Pack="true" PackagePath="\" />
+	</ItemGroup>
+	
 	<!-- ================= REFERENCES ================= -->
 	<ItemGroup>
 		<Reference Include="System.Design" />
