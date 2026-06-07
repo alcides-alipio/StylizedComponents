@@ -151,8 +151,8 @@ namespace StylizedComponents.Controls
 
             public int CornerRadius
             {
-                get => _control._cornerRadius;
-                set => SetProperty(nameof(_control._cornerRadius), value);
+                get => _control.CornerRadius;
+                set => SetProperty(nameof(_control.CornerRadius), value);
             }
 
             public int BorderThickness
