@@ -1,4 +1,5 @@
 ﻿using StylizedComponents.Core;
+using StylizedComponents.Core.models;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
@@ -11,7 +12,7 @@ namespace StylizedComponents.Controls
         {
             Graphics g = e.Graphics;
 
-            using (GraphicsPath path = RoundedPathBuilder.Create(new RoundedPathBuilder.RoundedPathOptions
+            using (GraphicsPath path = RoundedPathBuilder.Create(new RoundedPathOptions
             {
                 Width = Width,
                 Height = Height,

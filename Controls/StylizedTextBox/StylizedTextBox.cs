@@ -1,4 +1,5 @@
 ﻿using StylizedComponents.Core;
+using StylizedComponents.Core.models;
 using System;
 using System.ComponentModel;
 using System.Drawing;
@@ -97,18 +98,15 @@ namespace StylizedComponents.Controls
             if (ClientSize.Width <= 0 || ClientSize.Height <= 0)
                 return;
 
-            float radius = _autoRoundedCorners ? Utils.CalculateFullRoundBorderRadius(Width, Height) : _cornerRadius;
+            _clientArea.Bounds = RoundedContentBounds.Create(new RoundedPathOptions
+            {
+                Width = Width,
+                Height = Height,
+                BorderThickness = BorderThickness,
+                BorderRadius = _cornerRadius,
+                AutoRoundedCorners = AutoRoundedCorners
+            });
 
-            double angleRad = 45.0 * (Math.PI / 180.0);
-            int cornerInset = (int)(radius * (1.0 - Math.Cos(angleRad)));
-            int inset = BorderThickness + cornerInset;
-
-            int x = inset + 3;
-            int y = inset;
-            int w = Math.Max(0, ClientSize.Width - (inset * 2)) - 6;
-            int h = Math.Max(0, ClientSize.Height - (inset * 2)) - 1;
-
-            _clientArea.Bounds = new Rectangle(x, y, w, h);
             _textBox.Location = new Point(
                 _textBox.Location.X,
                 (_textBox.Parent.ClientSize.Height - _textBox.ClientSize.Height) / 2
@@ -129,6 +127,9 @@ namespace StylizedComponents.Controls
             }
 
             _textInput = _textBox.Text;
+
+            if (_isPlaceholderActive)
+                OnTextChanged(EventArgs.Empty);
         }
 
         private void SetTextBoxFocus() => _textBox.Focus();

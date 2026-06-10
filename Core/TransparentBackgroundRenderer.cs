@@ -16,19 +16,17 @@ namespace StylizedComponents.Core
 
         public void Invalidade()
         {
-            if (_cache != null)
-            {
-                _cache.Dispose();
-                _cache = null;
-            }
+            if (_cache == null)
+                return;
+
+            _cache.Dispose();
+            _cache = null;
         }
 
         public void Paint(Graphics g)
         {
             if (_cache == null)
-            {
                 BuildCache();
-            }
 
             Point offset = GetParentRelativeOffset();
 

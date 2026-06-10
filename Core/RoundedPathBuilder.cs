@@ -1,4 +1,5 @@
-﻿using System;
+﻿using StylizedComponents.Core.models;
+using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 
@@ -6,15 +7,6 @@ namespace StylizedComponents.Core
 {
     internal static class RoundedPathBuilder
     {
-        public struct RoundedPathOptions
-        {
-            public int Width;
-            public int Height;
-            public int BorderThickness;
-            public int BorderRadius;
-            public bool AutoRoundedCorners;
-        }
-
         public static GraphicsPath Create(RoundedPathOptions options)
         {
             RectangleF rect = new RectangleF(

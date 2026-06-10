@@ -63,6 +63,7 @@ namespace StylizedComponents.Controls
                     CreateItem("Font", "Common Tasks"),
                     CreateItem("Text", "Common Tasks"),
                     CreateItem("PlaceholderText", "Common Tasks"),
+                    CreateItem("TextAlign", "Common Tasks"),
 
                     new DesignerActionHeaderItem("Appearance"),
                     CreateItem("ForeColor", "Appearance"),
@@ -107,6 +108,12 @@ namespace StylizedComponents.Controls
             {
                 get => _control.PlaceholderText;
                 set => SetProperty(nameof(_control.PlaceholderText), value);
+            }
+
+            public ContentAlignment TextAlign
+            {
+                get => _control.TextAlign;
+                set => SetProperty(nameof(_control.TextAlign), value);
             }
 
             #endregion

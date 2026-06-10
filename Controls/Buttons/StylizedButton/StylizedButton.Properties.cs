@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 
@@ -161,10 +162,26 @@ namespace StylizedComponents.Controls
             }
         }
 
+        [Browsable(false)]
+        [Obsolete("Use AutoRoundedCorners instead.")]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public bool AutoRoundCorners
+        {
+            get => _autoRoundedCorners;
+            set
+            {
+                if (value == _autoRoundedCorners)
+                    return;
+
+                _autoRoundedCorners = value;
+                Invalidate();
+            }
+        }
+
         [Category("StylizedComponents Properties")]
         [DefaultValue(false)]
         [Description("Sets the value that indicates whether the corners will be rounded automatically.")]
-        public bool AutoRoundCorners
+        public bool AutoRoundedCorners
         {
             get => _autoRoundedCorners;
             set

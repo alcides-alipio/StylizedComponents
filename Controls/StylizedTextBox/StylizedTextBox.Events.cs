@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace StylizedComponents.Controls
@@ -84,6 +80,10 @@ namespace StylizedComponents.Controls
             _textBox.Leave += HandleTextBoxLeave;
 
             _textBox.TextChanged += (s, e) => UpdateTextInput();
+            _textBox.KeyDown += (s, e) => OnKeyDown(e);
+            _textBox.KeyPress += (s, e) => OnKeyPress(e);
+            _textBox.KeyUp += (s, e) => OnKeyUp(e);
+            _textBox.PreviewKeyDown += (s, e) => OnPreviewKeyDown(e);
 
             _clientArea.Click += (s, e) => SetTextBoxFocus();
         }
@@ -94,6 +94,10 @@ namespace StylizedComponents.Controls
             _textBox.Leave -= (s, e) => SetPlaceholder();
 
             _textBox.TextChanged -= (s, e) => UpdateTextInput();
+            _textBox.KeyDown -= (s, e) => OnKeyDown(e);
+            _textBox.KeyPress -= (s, e) => OnKeyPress(e);
+            _textBox.KeyUp -= (s, e) => OnKeyUp(e);
+            _textBox.PreviewKeyDown -= (s, e) => OnPreviewKeyDown(e);
 
             _clientArea.Click -= (s, e) => SetTextBoxFocus();
         }

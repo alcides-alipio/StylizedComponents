@@ -69,7 +69,7 @@ namespace StylizedComponents.Controls
                     CreateItem("CornerRadius", "Appearance"),
 
                     new DesignerActionHeaderItem("Behavior"),
-                    CreateItem("AutoRoundCorners", "Behavior")
+                    CreateItem("AutoRoundedCorners", "Behavior")
                 };
             }
 
@@ -163,10 +163,10 @@ namespace StylizedComponents.Controls
 
             #region Behavior
 
-            public bool AutoRoundCorners
+            public bool AutoRoundedCorners
             {
-                get => _control.AutoRoundCorners;
-                set => SetProperty(nameof(_control.AutoRoundCorners), value);
+                get => _control.AutoRoundedCorners;
+                set => SetProperty(nameof(_control.AutoRoundedCorners), value);
             }
 
             #endregion
