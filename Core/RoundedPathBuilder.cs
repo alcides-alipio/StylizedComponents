@@ -21,6 +21,9 @@ namespace StylizedComponents.Core
                     ? (int)(Math.Min(options.Width, options.Height) / 2f)
                     : options.BorderRadius;
 
+            if (radius > (int)(Math.Min(options.Width, options.Height) / 2f))
+                radius = (int)(Math.Min(options.Width, options.Height) / 2f);
+
             GraphicsPath path = new GraphicsPath();
 
             if (radius <= 0)

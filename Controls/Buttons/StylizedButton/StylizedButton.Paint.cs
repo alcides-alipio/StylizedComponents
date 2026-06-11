@@ -81,7 +81,7 @@ namespace StylizedComponents.Controls
                 Height = Height,
                 BorderThickness = BorderThickness,
                 BorderRadius = _cornerRadius,
-                AutoRoundedCorners = AutoRoundCorners
+                AutoRoundedCorners = _autoRoundedCorners
             });
 
             TextRenderer.DrawText(
@@ -110,7 +110,7 @@ namespace StylizedComponents.Controls
                 Height = Height,
                 BorderThickness = BorderThickness,
                 BorderRadius = _cornerRadius,
-                AutoRoundedCorners = AutoRoundCorners
+                AutoRoundedCorners = _autoRoundedCorners
             }))
             using (Pen pen = new Pen(borderColor, BorderThickness))
             {

@@ -13,6 +13,9 @@ namespace StylizedComponents.Core
                     ? (int)(Math.Min(options.Width, options.Height) / 2f)
                     : options.BorderRadius;
 
+            if (radius > (int)(Math.Min(options.Width, options.Height) / 2f))
+                radius = (int)(Math.Min(options.Width, options.Height) / 2f);
+
             double angleRad = 45.0 * (Math.PI / 180.0);
             int cornerInset = (int)(radius * (1.0 - Math.Cos(angleRad)));
             int inset = options.BorderThickness + cornerInset;

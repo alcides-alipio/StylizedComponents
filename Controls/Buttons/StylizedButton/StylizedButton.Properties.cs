@@ -162,22 +162,6 @@ namespace StylizedComponents.Controls
             }
         }
 
-        [Browsable(false)]
-        [Obsolete("Use AutoRoundedCorners instead.")]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public bool AutoRoundCorners
-        {
-            get => _autoRoundedCorners;
-            set
-            {
-                if (value == _autoRoundedCorners)
-                    return;
-
-                _autoRoundedCorners = value;
-                Invalidate();
-            }
-        }
-
         [Category("StylizedComponents Properties")]
         [DefaultValue(false)]
         [Description("Sets the value that indicates whether the corners will be rounded automatically.")]
@@ -239,6 +223,30 @@ namespace StylizedComponents.Controls
         {
             get => base.BackColor;
             set => base.BackColor = value;
+        }
+
+        #endregion
+
+        #endregion
+
+        #region Deprecated Properties
+
+        #region Shape Properties
+
+        [Browsable(false)]
+        [Obsolete("Use AutoRoundedCorners instead.")]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public bool AutoRoundCorners
+        {
+            get => _autoRoundedCorners;
+            set
+            {
+                if (value == _autoRoundedCorners)
+                    return;
+
+                _autoRoundedCorners = value;
+                Invalidate();
+            }
         }
 
         #endregion

@@ -24,6 +24,7 @@ namespace StylizedComponents.Controls
             g.CompositingQuality = CompositingQuality.HighSpeed;
 
             PaintContent(e);
+            PaintBorder(e.Graphics);
         }
 
         protected override void OnPaintBackground(PaintEventArgs e)

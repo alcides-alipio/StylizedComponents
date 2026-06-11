@@ -54,13 +54,36 @@ namespace StylizedComponents.Controls
 
             public override DesignerActionItemCollection GetSortedActionItems()
             {
+                DesignerActionPropertyItem CreateItem(string propertyName, string category)
+                {
+                    var prop = TypeDescriptor.GetProperties(_control)[propertyName];
+
+                    return new DesignerActionPropertyItem(
+                        prop.Name,
+                        prop.Name,
+                        category,
+                        prop.Description
+                    );
+                }
+
                 return new DesignerActionItemCollection
                 {
-                    new DesignerActionPropertyItem("Font", "Font", "Section 1"),
-                    new DesignerActionPropertyItem("Text", "Text", "Section 1"),
+                    new DesignerActionHeaderItem("Common Tasks"),
+                    CreateItem("Font", "Common Tasks"),
+                    CreateItem("Text", "Common Tasks"),
+                    CreateItem("TextAlign", "Common Tasks"),
 
-                    new DesignerActionPropertyItem("ForeColor", "ForeColor", "Section2"),
-                    new DesignerActionPropertyItem("BackColor", "BackColor", "Section2"),
+                    new DesignerActionHeaderItem("Appearance"),
+                    CreateItem("ForeColor", "Appearance"),
+                    CreateItem("BackColor", "Appearance"),
+                    CreateItem("BorderColor", "Appearance"),
+                    CreateItem("CornerRadius", "Appearance"),
+                    CreateItem("BorderThickness", "Appearance"),
+                    CreateItem("BorderStyle", "Appearance"),
+
+                    new DesignerActionHeaderItem("Behavior"),
+                    CreateItem("AutoRoundedCorners", "Behavior"),
+                    CreateItem("AutoSize", "Behavior"),
                 };
             }
 
@@ -72,7 +95,7 @@ namespace StylizedComponents.Controls
                 _service?.Refresh(_control);
             }
 
-            #region Section 1
+            #region Common Tasks
 
             public Font Font
             {
@@ -86,9 +109,15 @@ namespace StylizedComponents.Controls
                 set => SetProperty(nameof(_control.Text), value);
             }
 
+            public ContentAlignment TextAlign
+            {
+                get => _control.TextAlign;
+                set => SetProperty(nameof(_control.TextAlign), value);
+            }
+
             #endregion
 
-            #region Section 2
+            #region Appearance
 
             public Color ForeColor
             {
@@ -100,6 +129,45 @@ namespace StylizedComponents.Controls
             {
                 get => _control.BackColor;
                 set => SetProperty(nameof(_control.BackColor), value);
+            }
+
+            public Color BorderColor
+            {
+                get => _control.BorderColor;
+                set => SetProperty(nameof(_control.BorderColor), value);
+            }
+
+            public int CornerRadius
+            {
+                get => _control.CornerRadius;
+                set => SetProperty(nameof(_control.CornerRadius), value);
+            }
+            public int BorderThickness
+            {
+                get => _control.BorderThickness;
+                set => SetProperty(nameof(_control.BorderThickness), value);
+            }
+
+            public DashStyle BorderStyle
+            {
+                get => _control.BorderStyle;
+                set => SetProperty(nameof(_control.BorderStyle), value);
+            }
+
+            #endregion
+
+            #region Behavior
+
+            public bool AutoRoundedCorners
+            {
+                get => _control.AutoRoundedCorners;
+                set => SetProperty(nameof(_control.AutoRoundedCorners), value);
+            }
+
+            public bool AutoSize
+            {
+                get => _control.AutoSize;
+                set => SetProperty(nameof(_control.AutoSize), value);
             }
 
             #endregion
