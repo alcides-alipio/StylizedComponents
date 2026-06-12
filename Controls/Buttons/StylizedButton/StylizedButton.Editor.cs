@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using StylizedComponents.Core.models;
+using System.Collections;
 using System.ComponentModel;
 using System.ComponentModel.Design;
 using System.Drawing;
@@ -54,7 +55,9 @@ namespace StylizedComponents.Controls
                     new DesignerActionHeaderItem("Common Tasks"),
                     CreateItem("Font", "Common Tasks"),
                     CreateItem("Text", "Common Tasks"),
+                    CreateItem("Icon", "Common Tasks"),
                     CreateItem("TextAlign", "Common Tasks"),
+                    CreateItem("IconAlign", "Common Tasks"),
 
                     new DesignerActionHeaderItem("Appearance"),
                     CreateItem("ForeColor", "Appearance"),
@@ -67,6 +70,8 @@ namespace StylizedComponents.Controls
                     CreateItem("BorderStyle", "Appearance"),
                     CreateItem("HoverFilterStrength", "Appearance"),
                     CreateItem("CornerRadius", "Appearance"),
+                    CreateItem("IconSize", "Appearance"),
+                    CreateItem("Spacing", "Appearance"),
 
                     new DesignerActionHeaderItem("Behavior"),
                     CreateItem("AutoRoundedCorners", "Behavior")
@@ -95,10 +100,22 @@ namespace StylizedComponents.Controls
                 set => SetProperty(nameof(_control.Text), value);
             }
 
+            public Image Icon
+            {
+                get => _control.Icon;
+                set => SetProperty(nameof(_control.Icon), value);
+            }
+
             public ContentAlignment TextAlign
             {
                 get => _control.TextAlign;
                 set => SetProperty(nameof(_control.TextAlign), value);
+            }
+
+            public IconAlignment IconAlign
+            {
+                get => _control.IconAlign;
+                set => SetProperty(nameof(_control.IconAlign), value);
             }
 
             #endregion
@@ -157,6 +174,18 @@ namespace StylizedComponents.Controls
             {
                 get => _control.HoverFilterStrength;
                 set => SetProperty(nameof(_control.HoverFilterStrength), value);
+            }
+
+            public Size IconSize
+            {
+                get => _control.IconSize;
+                set => SetProperty(nameof(_control.IconSize), value);
+            }
+
+            public int Spacing
+            {
+                get => _control.Spacing;
+                set => SetProperty(nameof(_control.Spacing), value);
             }
 
             #endregion

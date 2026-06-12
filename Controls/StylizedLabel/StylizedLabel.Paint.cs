@@ -59,7 +59,7 @@ namespace StylizedComponents.Controls
                     break;
             }
 
-            Rectangle textRect = RoundedContentBounds.Create(new RoundedPathOptions
+            Rectangle textRect = ContentLayoutBuilder.CreateRoundedContent(new RoundedPathOptions
             {
                 Width = Width,
                 Height = Height,

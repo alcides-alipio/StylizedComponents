@@ -1,7 +1,9 @@
-﻿using System;
+﻿using StylizedComponents.Core.models;
+using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Windows.Forms;
 
 namespace StylizedComponents.Controls
 {
@@ -9,6 +11,11 @@ namespace StylizedComponents.Controls
     {
         private ContentAlignment _textAlign = ContentAlignment.MiddleCenter;
         private Color _fillColor = Color.FromArgb(94, 148, 255);
+
+        private Image _icon = null;
+        private IconAlignment _iconAlign = IconAlignment.Right;
+        private int _spacing = 6;
+        private Size _iconSize = new Size(20, 20);
 
         private Color _borderColor = Color.Black;
         private int _borderThickness = 0;
@@ -138,6 +145,73 @@ namespace StylizedComponents.Controls
                     return;
 
                 _hoverFilterStrength = value;
+                Invalidate();
+            }
+        }
+
+        #endregion
+
+        #region Icon Properties
+
+        [Category("StylizedComponents Properties")]
+        [DefaultValue(null)]
+        [Description("Sets the button icon for this control.")]
+        public Image Icon
+        {
+            get => _icon;
+            set
+            {
+                if (_icon == value)
+                    return;
+
+                _icon = value;
+                Invalidate();
+            }
+        }
+
+        [Category("StylizedComponents Properties")]
+        [DefaultValue(ContentAlignment.MiddleLeft)]
+        [Description("Sets the icon alignment for this control.")]
+        public IconAlignment IconAlign
+        {
+            get => _iconAlign;
+            set
+            {
+                if (_iconAlign == value)
+                    return;
+
+                _iconAlign = value;
+                Invalidate();
+            }
+        }
+
+        [Category("StylizedComponents Properties")]
+        [DefaultValue(6)]
+        [Description("Sets the spacing between the icon and the text for this control.")]
+        public int Spacing
+        {
+            get => _spacing;
+            set
+            {
+                if (_spacing == value)
+                    return;
+
+                _spacing = value;
+                Invalidate();
+            }
+        }
+        [Category("StylizedComponents Properties")]
+        [DefaultValue(typeof(Size), "20, 20")]
+        [Description("Sets the size of the icon for this control.")]
+        public Size IconSize
+        {
+            get => _iconSize;
+            set
+            {
+                if (_iconSize == value)
+                    return;
+
+                _iconSize = value;
                 Invalidate();
             }
         }

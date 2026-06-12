@@ -98,7 +98,7 @@ namespace StylizedComponents.Controls
             if (ClientSize.Width <= 0 || ClientSize.Height <= 0)
                 return;
 
-            _clientArea.Bounds = RoundedContentBounds.Create(new RoundedPathOptions
+            _clientArea.Bounds = ContentLayoutBuilder.CreateRoundedContent(new RoundedPathOptions
             {
                 Width = Width,
                 Height = Height,

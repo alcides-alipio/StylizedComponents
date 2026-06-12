@@ -29,53 +29,7 @@ namespace StylizedComponents.Controls
                 g.FillPath(brush, path);
             }
 
-            var flags =
-               TextFormatFlags.SingleLine |
-               TextFormatFlags.NoPadding;
-
-            switch (_textAlign)
-            {
-                case ContentAlignment.TopLeft:
-                case ContentAlignment.TopRight:
-                case ContentAlignment.TopCenter:
-                    flags = flags | TextFormatFlags.Top;
-                    break;
-
-                case ContentAlignment.MiddleLeft:
-                case ContentAlignment.MiddleRight:
-                case ContentAlignment.MiddleCenter:
-                    flags = flags | TextFormatFlags.VerticalCenter;
-                    break;
-
-                case ContentAlignment.BottomLeft:
-                case ContentAlignment.BottomRight:
-                case ContentAlignment.BottomCenter:
-                    flags = flags | TextFormatFlags.Bottom;
-                    break;
-            }
-
-            switch (_textAlign)
-            {
-                case ContentAlignment.TopLeft:
-                case ContentAlignment.MiddleLeft:
-                case ContentAlignment.BottomLeft:
-                    flags = flags | TextFormatFlags.Left;
-                    break;
-
-                case ContentAlignment.TopCenter:
-                case ContentAlignment.MiddleCenter:
-                case ContentAlignment.BottomCenter:
-                    flags = flags | TextFormatFlags.HorizontalCenter;
-                    break;
-
-                case ContentAlignment.TopRight:
-                case ContentAlignment.MiddleRight:
-                case ContentAlignment.BottomRight:
-                    flags = flags | TextFormatFlags.Right;
-                    break;
-            }
-
-            Rectangle textRect = RoundedContentBounds.Create(new RoundedPathOptions
+            Rectangle contentRect = ContentLayoutBuilder.CreateRoundedContent(new RoundedPathOptions
             {
                 Width = Width,
                 Height = Height,
@@ -84,14 +38,60 @@ namespace StylizedComponents.Controls
                 AutoRoundedCorners = _autoRoundedCorners
             });
 
-            TextRenderer.DrawText(
-                g,
-                Text,
-                Font,
-                textRect,
-                ForeColor,
-                flags
-            );
+            bool hasIcon = _icon != null;
+            bool hasText = !string.IsNullOrWhiteSpace(Text);
+
+            if (!hasIcon && !hasText)
+                return;
+
+
+
+
+
+
+
+
+
+
+
+            Size textSize = hasText
+                ? ContentLayoutBuilder.MeasureText(
+                    Text,
+                    Font)
+                : Size.Empty;
+
+            Size iconSize = hasIcon
+                ? _icon.Size
+                : Size.Empty;
+
+            Rectangle textAndIconRect = ContentLayoutBuilder.CreateTextAndImageContent(
+                Text, Font,
+                _icon, _iconAlign,
+                contentRect, _textAlign, _spacing);
+
+            Rectangle textRect = ContentLayoutBuilder.CreateTextRectangle(
+                textSize,
+                iconSize, _iconAlign,
+                textAndIconRect, _spacing);
+
+            Rectangle iconRect = ContentLayoutBuilder.CreateIconRectangle(
+            textSize,
+            iconSize, _iconAlign,
+            textAndIconRect, _spacing);
+
+            if (hasIcon)
+                g.DrawImage(_icon, iconRect);
+
+            if (hasText)
+            {
+                TextRenderer.DrawText(
+                    g,
+                    Text,
+                    Font,
+                    textRect,
+                    ForeColor,
+                    TextFormatFlags.NoPadding);
+            }
         }
 
         protected void PaintBorder(Graphics g)
@@ -102,7 +102,10 @@ namespace StylizedComponents.Controls
             Color borderColor = BorderColor;
 
             if (_hoverState)
-                borderColor = Utils.ApplyColorFilter(borderColor, _hoverColorFilter, _hoverFilterStrength);
+                borderColor = Utils.ApplyColorFilter(
+                    borderColor,
+                    _hoverColorFilter,
+                    _hoverFilterStrength);
 
             using (GraphicsPath path = RoundedPathBuilder.Create(new RoundedPathOptions
             {
