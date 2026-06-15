@@ -25,9 +25,10 @@ namespace StylizedComponents.Core.models
             if (editorService == null)
                 return value;
 
-            var picker = new IconRelationPicker();
-
-            picker.SelectedValue = (IconAlignment)value;
+            var picker = new IconRelationPicker
+            {
+                SelectedValue = (IconAlignment)value
+            };
 
             picker.ValueSelected += (s, e) =>
             {

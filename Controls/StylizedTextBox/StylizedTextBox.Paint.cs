@@ -1,4 +1,4 @@
-﻿using StylizedComponents.Core;
+﻿using StylizedComponents.Core.builders;
 using StylizedComponents.Core.models;
 using System.Drawing;
 using System.Drawing.Drawing2D;

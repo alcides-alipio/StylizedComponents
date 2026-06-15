@@ -3,7 +3,7 @@ using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 
-namespace StylizedComponents.Core
+namespace StylizedComponents.Core.builders
 {
     internal static class RoundedPathBuilder
     {

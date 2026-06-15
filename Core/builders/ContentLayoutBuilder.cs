@@ -3,7 +3,7 @@ using System;
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace StylizedComponents.Core
+namespace StylizedComponents.Core.builders
 {
     internal static class ContentLayoutBuilder
     {
@@ -49,11 +49,11 @@ namespace StylizedComponents.Core
 
         public static Rectangle CreateTextAndImageContent(
             string text, Font textFont,
-            Image image, IconAlignment iconAlign,
+            Image icon, Size iconSize, IconAlignment iconAlign,
             Rectangle bounds, ContentAlignment align, int spacing)
         {
             bool hasText = !string.IsNullOrWhiteSpace(text);
-            bool hasIcon = image != null;
+            bool hasIcon = icon != null;
 
             if (!hasIcon && !hasText)
                 return Rectangle.Empty;
@@ -64,12 +64,8 @@ namespace StylizedComponents.Core
                     textFont)
                 : Size.Empty;
 
-            Size iconSize = hasIcon
-                ? image.Size
-                : Size.Empty;
-
             int contentSpacing =
-                (hasIcon && hasText)
+                hasIcon && hasText
                     ? spacing
                     : 0;
 
@@ -159,7 +155,7 @@ namespace StylizedComponents.Core
             Rectangle contentBounds, int spacing)
         {
             int contentSpacing =
-                (textSize != Size.Empty && iconSize != Size.Empty)
+                textSize != Size.Empty && iconSize != Size.Empty
                     ? spacing
                     : 0;
 
@@ -209,7 +205,7 @@ namespace StylizedComponents.Core
             Rectangle contentBounds, int spacing)
         {
             int contentSpacing =
-                (textSize != Size.Empty && iconSize != Size.Empty)
+                textSize != Size.Empty && iconSize != Size.Empty
                     ? spacing
                     : 0;
 

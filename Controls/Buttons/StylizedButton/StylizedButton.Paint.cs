@@ -1,4 +1,5 @@
 ﻿using StylizedComponents.Core;
+using StylizedComponents.Core.builders;
 using StylizedComponents.Core.models;
 using System;
 using System.Drawing;
@@ -44,16 +45,6 @@ namespace StylizedComponents.Controls
             if (!hasIcon && !hasText)
                 return;
 
-
-
-
-
-
-
-
-
-
-
             Size textSize = hasText
                 ? ContentLayoutBuilder.MeasureText(
                     Text,
@@ -61,12 +52,12 @@ namespace StylizedComponents.Controls
                 : Size.Empty;
 
             Size iconSize = hasIcon
-                ? _icon.Size
+                ? _iconSize
                 : Size.Empty;
 
             Rectangle textAndIconRect = ContentLayoutBuilder.CreateTextAndImageContent(
                 Text, Font,
-                _icon, _iconAlign,
+                _icon, _iconSize, _iconAlign,
                 contentRect, _textAlign, _spacing);
 
             Rectangle textRect = ContentLayoutBuilder.CreateTextRectangle(

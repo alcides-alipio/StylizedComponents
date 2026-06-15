@@ -1,9 +1,11 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 using StylizedComponents.Core.models;
 
+[ToolboxItem(false)]
 public class IconRelationPicker : Control
 {
     public event EventHandler ValueSelected;
@@ -15,21 +17,22 @@ public class IconRelationPicker : Control
     private Rectangle _top;
     private Rectangle _bottom;
 
+    private int _rectSize { get => 30; }
+    private int _xCenter { get => (Size.Width - _rectSize) / 2; }
+    private int _yCenter { get => (Size.Height - _rectSize) / 2; }
+
     public IconRelationPicker()
     {
         SetStyle(ControlStyles.AllPaintingInWmPaint |
                  ControlStyles.OptimizedDoubleBuffer |
                  ControlStyles.UserPaint, true);
 
-        Size = new Size(120, 120);
+        Size = new Size(135, 90);
 
-        int w = 40;
-        int h = 40;
-
-        _left = new Rectangle(0, 40, w, h);
-        _right = new Rectangle(80, 40, w, h);
-        _top = new Rectangle(40, 0, w, h);
-        _bottom = new Rectangle(40, 80, w, h);
+        _left = new Rectangle(_xCenter - _rectSize, _yCenter, _rectSize, _rectSize);
+        _right = new Rectangle(_xCenter + _rectSize, _yCenter, _rectSize, _rectSize);
+        _top = new Rectangle(_xCenter, 0, _rectSize, _rectSize);
+        _bottom = new Rectangle(_xCenter, Size.Height - _rectSize, _rectSize, _rectSize - 1);
     }
 
     protected override void OnPaint(PaintEventArgs e)
@@ -45,6 +48,12 @@ public class IconRelationPicker : Control
 
         DrawSelected(e.Graphics);
         DrawCross(e.Graphics);
+    }
+
+    protected override void OnPaintBackground(PaintEventArgs pevent)
+    {
+        base.OnPaintBackground(pevent);
+        pevent.Graphics.Clear(SystemColors.Control);
     }
 
     private void DrawCell(Graphics g, Rectangle r)
@@ -81,8 +90,8 @@ public class IconRelationPicker : Control
     {
         Pen pen = new Pen(Color.LightGray, 1);
 
-        g.DrawLine(pen, 60, 0, 60, 120);
-        g.DrawLine(pen, 0, 60, 120, 60);
+        g.DrawLine(pen, _xCenter + (_rectSize / 2), 1, _xCenter + (_rectSize / 2), Size.Height - 2);
+        g.DrawLine(pen, _xCenter - _rectSize + 1, _yCenter + (_rectSize / 2), _xCenter + (_rectSize * 2) - 1, _yCenter + (_rectSize / 2));
 
         pen.Dispose();
     }
@@ -100,8 +109,7 @@ public class IconRelationPicker : Control
         else if (_bottom.Contains(e.Location))
             SelectedValue = IconAlignment.Bottom;
 
-        if (ValueSelected != null)
-            ValueSelected(this, EventArgs.Empty);
+        ValueSelected?.Invoke(this, EventArgs.Empty);
 
         Invalidate();
     }
