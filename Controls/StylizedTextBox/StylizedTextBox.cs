@@ -99,14 +99,10 @@ namespace StylizedComponents.Controls
             if (ClientSize.Width <= 0 || ClientSize.Height <= 0)
                 return;
 
-            _clientArea.Bounds = ContentLayoutBuilder.CreateRoundedContent(new RoundedPathOptions
-            {
-                Width = Width,
-                Height = Height,
-                BorderThickness = BorderThickness,
-                BorderRadius = _cornerRadius,
-                AutoRoundedCorners = AutoRoundedCorners
-            });
+            _clientArea.Bounds = ContentLayoutBuilder.CreateRoundedContent(
+                Width, Height,
+                _borderThickness, _cornerRadius,
+                _autoRoundedCorners);
 
             _textBox.Location = new Point(
                 _textBox.Location.X,

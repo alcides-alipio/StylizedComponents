@@ -25,24 +25,27 @@ namespace StylizedComponents.Core.builders
             }
         }
 
-        public static Rectangle CreateRoundedContent(RoundedPathOptions options)
+        public static Rectangle CreateRoundedContent(
+            int width, int height,
+            int borderThickness, int borderRadius,
+            bool autoRoundedCorners)
         {
             float radius =
-                options.AutoRoundedCorners
-                    ? (int)(Math.Min(options.Width, options.Height) / 2f)
-                    : options.BorderRadius;
+                autoRoundedCorners
+                    ? (int)(Math.Min(width, height) / 2f)
+                    : borderRadius;
 
-            if (radius > (int)(Math.Min(options.Width, options.Height) / 2f))
-                radius = (int)(Math.Min(options.Width, options.Height) / 2f);
+            if (radius > (int)(Math.Min(width, height) / 2f))
+                radius = (int)(Math.Min(width, height) / 2f);
 
             double angleRad = 45.0 * (Math.PI / 180.0);
             int cornerInset = (int)(radius * (1.0 - Math.Cos(angleRad)));
-            int inset = options.BorderThickness + cornerInset;
+            int inset = borderThickness + cornerInset;
 
             int x = inset + 3;
             int y = inset;
-            int w = Math.Max(0, options.Width - inset * 2) - 6;
-            int h = Math.Max(0, options.Height - inset * 2) - 1;
+            int w = Math.Max(0, width - inset * 2) - 6;
+            int h = Math.Max(0, height - inset * 2) - 1;
 
             return new Rectangle(x, y, w, h);
         }

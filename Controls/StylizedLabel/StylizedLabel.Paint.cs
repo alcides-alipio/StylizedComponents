@@ -14,7 +14,7 @@ namespace StylizedComponents.Controls
             Graphics g = e.Graphics;
 
             var flags =
-               TextFormatFlags.SingleLine |
+               TextFormatFlags.WordBreak |
                TextFormatFlags.NoPadding;
 
             switch (_textAlign)
@@ -59,14 +59,10 @@ namespace StylizedComponents.Controls
                     break;
             }
 
-            Rectangle textRect = ContentLayoutBuilder.CreateRoundedContent(new RoundedPathOptions
-            {
-                Width = Width,
-                Height = Height,
-                BorderThickness = BorderThickness,
-                BorderRadius = _cornerRadius,
-                AutoRoundedCorners = _autoRoundedCorners
-            });
+            Rectangle textRect = ContentLayoutBuilder.CreateRoundedContent(
+                Width, Height,
+                _borderThickness, _cornerRadius,
+                _autoRoundedCorners);
 
             TextRenderer.DrawText(
                 g,

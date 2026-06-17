@@ -27,14 +27,11 @@ namespace StylizedComponents.Controls
                 g.FillPath(brush, path);
             }
 
-            Rectangle contentRect = ContentLayoutBuilder.CreateRoundedContent(new RoundedPathOptions
-            {
-                Width = Width,
-                Height = Height,
-                BorderThickness = BorderThickness,
-                BorderRadius = _cornerRadius,
-                AutoRoundedCorners = _autoRoundedCorners
-            });
+            Rectangle contentRect = ContentLayoutBuilder.CreateRoundedContent(
+                Width, Height,
+                _borderThickness, _cornerRadius,
+                _autoRoundedCorners
+            );
 
             bool hasIcon = _icon != null;
             bool hasText = !string.IsNullOrWhiteSpace(Text);
