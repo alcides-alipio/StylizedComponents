@@ -1,4 +1,5 @@
 ﻿using StylizedComponents.Core;
+using StylizedComponents.Core.builders;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
@@ -38,6 +39,16 @@ namespace StylizedComponents.Controls
             }
 
             base.Dispose(disposing);
+        }
+
+        private void UpdateRegion()
+        {
+            using (var path = RoundedPathBuilder.Create(
+                Width, Height,
+                _borderThickness, _cornerRadius,
+                _autoRoundedCorners, 1
+            ))
+                Region = new Region(path);
         }
     }
 }

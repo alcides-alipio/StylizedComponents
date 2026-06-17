@@ -83,14 +83,11 @@ namespace StylizedComponents.Controls
             if (BorderThickness == 0)
                 return;
 
-            using (GraphicsPath path = RoundedPathBuilder.Create(new RoundedPathOptions
-            {
-                Width = Width,
-                Height = Height,
-                BorderThickness = BorderThickness,
-                BorderRadius = _cornerRadius,
-                AutoRoundedCorners = _autoRoundedCorners
-            }))
+            using (GraphicsPath path = RoundedPathBuilder.Create(
+            Width, Height,
+            _borderThickness, _cornerRadius,
+            _autoRoundedCorners
+            ))
             using (Pen pen = new Pen(BorderColor, BorderThickness))
             {
                 pen.LineJoin = LineJoin.Round;

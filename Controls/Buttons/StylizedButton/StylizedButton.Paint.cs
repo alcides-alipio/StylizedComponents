@@ -17,14 +17,11 @@ namespace StylizedComponents.Controls
             if (_hoverState)
                 fillColor = Utils.ApplyColorFilter(fillColor, _hoverColorFilter, _hoverFilterStrength);
 
-            using (GraphicsPath path = RoundedPathBuilder.Create(new RoundedPathOptions
-            {
-                Width = Width,
-                Height = Height,
-                BorderThickness = _borderThickness,
-                BorderRadius = _cornerRadius,
-                AutoRoundedCorners = _autoRoundedCorners
-            }))
+            using (GraphicsPath path = RoundedPathBuilder.Create(
+                Width, Height,
+                _borderThickness, _cornerRadius,
+                _autoRoundedCorners, _borderThickness / 2
+            ))
             using (Brush brush = new SolidBrush(fillColor))
             {
                 g.FillPath(brush, path);
@@ -57,7 +54,7 @@ namespace StylizedComponents.Controls
 
             Rectangle textAndIconRect = ContentLayoutBuilder.CreateTextAndImageContent(
                 Text, Font,
-                _icon, _iconSize, _iconAlign,
+                _icon, iconSize, _iconAlign,
                 contentRect, _textAlign, _spacing);
 
             Rectangle textRect = ContentLayoutBuilder.CreateTextRectangle(
@@ -98,14 +95,11 @@ namespace StylizedComponents.Controls
                     _hoverColorFilter,
                     _hoverFilterStrength);
 
-            using (GraphicsPath path = RoundedPathBuilder.Create(new RoundedPathOptions
-            {
-                Width = Width,
-                Height = Height,
-                BorderThickness = BorderThickness,
-                BorderRadius = _cornerRadius,
-                AutoRoundedCorners = _autoRoundedCorners
-            }))
+            using (GraphicsPath path = RoundedPathBuilder.Create(
+            Width, Height,
+            _borderThickness, _cornerRadius,
+            _autoRoundedCorners
+            ))
             using (Pen pen = new Pen(borderColor, BorderThickness))
             {
                 pen.LineJoin = LineJoin.Round;

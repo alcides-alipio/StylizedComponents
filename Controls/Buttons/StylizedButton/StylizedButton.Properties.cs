@@ -232,6 +232,7 @@ namespace StylizedComponents.Controls
                     return;
 
                 _cornerRadius = value;
+                UpdateRegion();
                 Invalidate();
             }
         }
@@ -248,6 +249,7 @@ namespace StylizedComponents.Controls
                     return;
 
                 _autoRoundedCorners = value;
+                UpdateRegion();
                 Invalidate();
             }
         }

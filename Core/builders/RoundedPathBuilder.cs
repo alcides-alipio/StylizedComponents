@@ -7,22 +7,22 @@ namespace StylizedComponents.Core.builders
 {
     internal static class RoundedPathBuilder
     {
-        public static GraphicsPath Create(RoundedPathOptions options)
+        public static GraphicsPath Create(int width, int height, int borderThickness, int borderRadius, bool autoRoundedCorners, float padding = 0)
         {
             RectangleF rect = new RectangleF(
-                options.BorderThickness / 2f,
-                options.BorderThickness / 2f,
-                options.Width - options.BorderThickness,
-                options.Height - options.BorderThickness
+                (borderThickness / 2f) - padding,
+                (borderThickness / 2f) - padding,
+                (width - borderThickness) + (padding * 2),
+                (height - borderThickness) + (padding * 2)
             );
 
             float radius =
-                options.AutoRoundedCorners
-                    ? (int)(Math.Min(options.Width, options.Height) / 2f)
-                    : options.BorderRadius;
+                autoRoundedCorners
+                    ? (int)(Math.Min(rect.Width, rect.Height) / 2f)
+                    : borderRadius;
 
-            if (radius > (int)(Math.Min(options.Width, options.Height) / 2f))
-                radius = (int)(Math.Min(options.Width, options.Height) / 2f);
+            if (radius > (int)(Math.Min(rect.Width, rect.Height) / 2f))
+                radius = (int)(Math.Min(rect.Width, rect.Height) / 2f);
 
             GraphicsPath path = new GraphicsPath();
 

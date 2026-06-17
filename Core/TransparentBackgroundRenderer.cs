@@ -1,4 +1,5 @@
 ﻿using System.Drawing;
+using System.Threading;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.TextBox;
 
@@ -8,6 +9,7 @@ namespace StylizedComponents.Core
     {
         private readonly Control _owner;
         private Bitmap _cache;
+        private bool _cacheDirty = true;
 
         public TransparentBackgroundRenderer(Control owner)
         {
@@ -16,17 +18,19 @@ namespace StylizedComponents.Core
 
         public void Invalidade()
         {
-            if (_cache == null)
-                return;
-
-            _cache.Dispose();
-            _cache = null;
+            _cacheDirty = true;
         }
 
         public void Paint(Graphics g)
         {
-            if (_cache == null)
+            if (_cacheDirty || _cache == null)
+            {
                 BuildCache();
+                _cacheDirty = false;
+            }
+
+            if (_cache == null)
+                return;
 
             Point offset = GetParentRelativeOffset();
 

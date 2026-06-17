@@ -12,14 +12,11 @@ namespace StylizedComponents.Controls
         {
             Graphics g = e.Graphics;
 
-            using (GraphicsPath path = RoundedPathBuilder.Create(new RoundedPathOptions
-            {
-                Width = Width,
-                Height = Height,
-                BorderThickness = _borderThickness,
-                BorderRadius = _cornerRadius,
-                AutoRoundedCorners = _autoRoundedCorners
-            }))
+            using (GraphicsPath path = RoundedPathBuilder.Create(
+            Width, Height,
+            _borderThickness, _cornerRadius,
+            _autoRoundedCorners
+            ))
             {
                 using (SolidBrush brush = new SolidBrush(_fillColor))
                 {

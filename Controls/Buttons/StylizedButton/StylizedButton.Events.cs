@@ -34,12 +34,18 @@ namespace StylizedComponents.Controls
 
             Graphics g = e.Graphics;
 
+            var save = g.Save();
+            float translate = _cornerRadius != 0 ? 0.1f : (_autoRoundedCorners == false ? 0.0f : 0.1f);
+            g.TranslateTransform(translate, translate);
+
             g.SmoothingMode = SmoothingMode.AntiAlias;
             g.PixelOffsetMode = PixelOffsetMode.Half;
             g.CompositingQuality = CompositingQuality.HighSpeed;
 
             PaintContent(g);
             PaintBorder(g);
+
+            g.Restore(save);
         }
 
         protected override void OnPaintBackground(PaintEventArgs e)
@@ -76,12 +82,18 @@ namespace StylizedComponents.Controls
 
         private void HandleMouseEnter(object sender, EventArgs e)
         {
+            if (Parent == null)
+                return;
+
             _hoverState = true;
             Invalidate();
         }
 
         private void HandleMouseLeave(object sender, EventArgs e)
         {
+            if (Parent == null)
+                return;
+
             _hoverState = false;
             Invalidate();
         }
@@ -93,6 +105,7 @@ namespace StylizedComponents.Controls
         protected override void OnResize(EventArgs e)
         {
             base.OnResize(e);
+            UpdateRegion();
             Invalidate();
         }
 
