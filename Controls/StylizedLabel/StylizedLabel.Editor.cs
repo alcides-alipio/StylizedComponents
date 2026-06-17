@@ -75,6 +75,7 @@ namespace StylizedComponents.Controls
 
                     new DesignerActionHeaderItem("Appearance"),
                     CreateItem("ForeColor", "Appearance"),
+                    CreateItem("FillColor", "Appearance"),
                     CreateItem("BackColor", "Appearance"),
                     CreateItem("BorderColor", "Appearance"),
                     CreateItem("CornerRadius", "Appearance"),
@@ -123,6 +124,12 @@ namespace StylizedComponents.Controls
             {
                 get => _control.ForeColor;
                 set => SetProperty(nameof(_control.ForeColor), value);
+            }
+
+            public Color FillColor
+            {
+                get => _control.FillColor;
+                set => SetProperty(nameof(_control.FillColor), value);
             }
 
             public Color BackColor

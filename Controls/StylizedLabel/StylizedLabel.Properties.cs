@@ -7,6 +7,7 @@ namespace StylizedComponents.Controls
     public partial class StylizedLabel
     {
         private ContentAlignment _textAlign = ContentAlignment.MiddleCenter;
+        private Color _fillColor = SystemColors.Control;
 
         private Color _borderColor = Color.Black;
         private int _borderThickness = 0;
@@ -29,6 +30,22 @@ namespace StylizedComponents.Controls
                     return;
 
                 _textAlign = value;
+                Invalidate();
+            }
+        }
+
+        [Category("StylizedComponents Properties")]
+        [DefaultValue(typeof(SystemColors), "Control")]
+        [Description("Sets the fill color of the label for this control.")]
+        public Color FillColor
+        {
+            get => _fillColor;
+            set
+            {
+                if (value == _fillColor)
+                    return;
+
+                _fillColor = value;
                 Invalidate();
             }
         }

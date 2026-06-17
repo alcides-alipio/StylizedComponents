@@ -88,7 +88,7 @@ namespace StylizedComponents.Controls
             _borderThickness, _cornerRadius,
             _autoRoundedCorners
             ))
-            using (Pen pen = new Pen(BorderColor, BorderThickness))
+            using (Pen pen = new Pen(_borderColor, _borderThickness))
             {
                 pen.LineJoin = LineJoin.Round;
                 pen.DashStyle = BorderStyle;
@@ -100,12 +100,18 @@ namespace StylizedComponents.Controls
         protected void PaintBackground(PaintEventArgs e)
         {
             if (BackColor != Color.Transparent)
-            {
                 base.OnPaintBackground(e);
-                return;
-            }
+            else
+                _transparentBackgroundRenderer.Paint(e.Graphics);
 
-            _transparentBackgroundRenderer.Paint(e.Graphics);
+            using (var path = RoundedPathBuilder.Create(
+                Width, Height,
+                _borderThickness, _cornerRadius,
+                _autoRoundedCorners))
+            {
+                using (var brush = new SolidBrush(_fillColor))
+                    e.Graphics.FillPath(brush, path);
+            }
         }
     }
 }
