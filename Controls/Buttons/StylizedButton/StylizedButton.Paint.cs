@@ -97,7 +97,7 @@ namespace StylizedComponents.Controls
             _borderThickness, _cornerRadius,
             _autoRoundedCorners
             ))
-            using (Pen pen = new Pen(borderColor, BorderThickness))
+            using (Pen pen = new(borderColor, BorderThickness))
             {
                 pen.LineJoin = LineJoin.Round;
                 pen.DashStyle = BorderStyle;

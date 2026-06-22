@@ -94,29 +94,13 @@ namespace StylizedComponents.Controls
 
         protected override void OnPaintBackground(PaintEventArgs e)
         {
-            if (Parent == null)
-            {
-                base.OnPaintBackground(e);
-                return;
-            }
-
             if (!_useTransparentBackground)
             {
                 base.OnPaintBackground(e);
                 return;
             }
 
-            if (_backgroundCache == null)
-            {
-                BuildBackgroundCache();
-            }
-
-            Point offset = GetParentRelativeOffset();
-
-            var state = e.Graphics.Save();
-            e.Graphics.TranslateTransform(-offset.X, -offset.Y);
-            e.Graphics.DrawImageUnscaled(_backgroundCache, 0, 0);
-            e.Graphics.Restore(state);
+            _backgroundRender.Paint(e.Graphics);
         }
     }
 }

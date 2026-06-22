@@ -5,6 +5,7 @@
 		<TargetFramework>net472</TargetFramework>
 		<UseWindowsForms>true</UseWindowsForms>
 		<OutputType>Library</OutputType>
+		<LangVersion>9.0</LangVersion>
 
 		<RootNamespace>StylizedComponents</RootNamespace>
 		<AssemblyName>StylizedComponents</AssemblyName>
@@ -14,7 +15,7 @@
 	<!-- =============== NUGET METADATA =============== -->
 	<PropertyGroup>
 		<PackageId>StylizedComponents</PackageId>
-		<Version>1.5.5</Version>
+		<Version>1.5.5.1</Version>
 		<Authors>Alcides Alipio</Authors>
 		<Description>WinForms custom controls library</Description>
 

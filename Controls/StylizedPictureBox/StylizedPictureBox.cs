@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using StylizedComponents.Core;
+using System.ComponentModel;
 using System.Windows.Forms;
 
 namespace StylizedComponents.Controls
@@ -7,6 +8,11 @@ namespace StylizedComponents.Controls
     [Designer(typeof(StylizedPictureBoxDesigner))]
     public partial class StylizedPictureBox : PictureBox
     {
-        public StylizedPictureBox() : base() { }
+        private TransparentBackgroundRenderer _backgroundRender;
+
+        public StylizedPictureBox() : base()
+        {
+            _backgroundRender = new(this);
+        }
     }
 }
